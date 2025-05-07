@@ -1,0 +1,17 @@
+{
+  "name": "basic-nocommon",
+  "version": "1.0.0",
+  "main": "src/app.mjs",
+  "scripts": {
+    "start": "node src/app.mjs",
+    "dev": "nodemon src/app.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
