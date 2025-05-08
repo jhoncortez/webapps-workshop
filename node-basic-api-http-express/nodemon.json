@@ -1,0 +1,9 @@
+{
+    "watch": [
+        "src/**/*.js",
+        "src/**/*.ts",
+        "src/**/*.mjs",
+        "src/**/*.json"
+    ],
+    "ext": "js,ts,mjs,json"
+}
