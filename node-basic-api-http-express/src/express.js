@@ -8,38 +8,40 @@ app.disable('x-powered-by') // Disable the 'X-Powered-By' header for security re
 
 const PORT = process.env.PORT || 3002
 
-// Middleware to parse JSON request bodies
-app.use((req, res, next) => {
-  // This code parses JSON request bodies and makes the parsed data available in req.body.
-  // ask if is not post method or is not json then keep going
-  if (req.method !== 'POST' || req.headers['content-type'] !== 'application/json') {
-    // If the request method is not POST or the content type is not JSON, call the next middleware or route handler.
-    return next()
-  }
+app.use(express.json()) // Middleware to parse JSON request bodies
 
-  let body = ''
-  req.on('data', chunk => {
-    body += chunk.toString()
-  })
-  req.on('end', () => {
-    try {
-      const newPokemonData = JSON.parse(body)
-      newPokemonData.timestamp = Date.now()
-      // Here you would typically save the newPokemonData to a database
-      // For this example, we just log it to the console
-      console.log('Parsed JSON:', newPokemonData)
-      // Set the parsed data to req.body
-      req.body = newPokemonData
-      // Call the next middleware or route handler
-      next()
-    } catch (error) {
-      res.status(400).json({ error: 'Invalid JSON' })
-    }
-  })
-  req.on('error', () => {
-    res.status(500).json({ error: 'Internal Server Error' })
-  })
-})
+// Middleware to parse JSON request bodies
+// app.use((req, res, next) => {
+//   // This code parses JSON request bodies and makes the parsed data available in req.body.
+//   // ask if is not post method or is not json then keep going
+//   if (req.method !== 'POST' || req.headers['content-type'] !== 'application/json') {
+//     // If the request method is not POST or the content type is not JSON, call the next middleware or route handler.
+//     return next()
+//   }
+
+//   let body = ''
+//   req.on('data', chunk => {
+//     body += chunk.toString()
+//   })
+//   req.on('end', () => {
+//     try {
+//       const newPokemonData = JSON.parse(body)
+//       newPokemonData.timestamp = Date.now()
+//       // Here you would typically save the newPokemonData to a database
+//       // For this example, we just log it to the console
+//       console.log('Parsed JSON:', newPokemonData)
+//       // Set the parsed data to req.body
+//       req.body = newPokemonData
+//       // Call the next middleware or route handler
+//       next()
+//     } catch (error) {
+//       res.status(400).json({ error: 'Invalid JSON' })
+//     }
+//   })
+//   req.on('error', () => {
+//     res.status(500).json({ error: 'Internal Server Error' })
+//   })
+// })
 
 // Middleware to handle CORS (Cross-Origin Resource Sharing)
 // app.use((req, res, next) => {
