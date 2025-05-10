@@ -1,3 +1,23 @@
+/* MONGODB BASED
+ * this is a model for the products collection in the mongoDB database
+ * it uses the mongodb driver to connect to the database and perform CRUD operations
+ * it is a class that has methods to get all products, get a product by id, create a product, update a product and delete a product
+ * it uses the ObjectId from the mongodb driver to create a new ObjectId for the product
+ * it uses the connectToDatabase function to connect to the database
+ * it uses the collection property to access the products collection in the database
+ * it uses the find, findOne, insertOne, findOneAndUpdate and deleteOne methods to perform CRUD operations
+ * it uses the toArray method to convert the cursor to an array of products
+ * it uses the ObjectId to create a new ObjectId for the product
+ * it uses the new ObjectId(id) to convert the id to an ObjectId
+ * it uses the { returnDocument: 'after' } option to return the updated document after the update
+ * it uses the { _id: new ObjectId(id) } to find the product by its ObjectId
+ * it uses the { $set: productData } to update the product with the new data
+ * it uses the { success: true, data: product } to return the updated product
+ * it uses the { success: false, error: 'Product not found' } to return an error if the product was not found
+ * it uses the { success: true, data: { ...productData, _id: result.insertedId } } to return the inserted product with its new ID
+ * it uses the { success: false, error: 'Product not found' } to return an error if the product was not found
+ * it uses the { success: true, data: product } to return the updated product
+*/
 // import { randomUUID } from 'crypto'
 // import { validateProduct, validateProductPartial } from '../db/prodcts-schema.js'
 // import { readJSON, writeJSON } from '../src/utils.js'
