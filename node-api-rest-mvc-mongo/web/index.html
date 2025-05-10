@@ -84,7 +84,7 @@
                     <h3>${product.name}</h3>
                     <p>Price: $${product.price}</p>
                     <p>Category: ${product.categories.map(category => category.name).join(', ')}</p>
-                    <button class="delete-button" data-id="${product.id}">Delete</button>
+                    <button class="delete-button" data-id="${product._id}">Delete</button>
                 </div>
             `).join('');
 

@@ -1,8 +1,10 @@
-import ProductsModel from '../models/productsModel.js'
+// import ProductsModel from '../models/productsModel.js'
+import ProductsModelMongo from '../models/productsModelMongo.js'
 
 class ProductsController {
   constructor () {
-    this.productsModel = new ProductsModel('../db/products.json')
+    // this.productsModel = new ProductsModel('../db/products.json')
+    this.productsModel = new ProductsModelMongo()
   }
 
   getProducts = async (req, res) => {
