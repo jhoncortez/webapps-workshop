@@ -6,11 +6,13 @@ dotenv.config() // Load environment variables from .env file
 const uri = process.env.MONGODB_URI || 'mongodb://localhost:27017/mvcproducts'
 
 const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+  // useNewUrlParser: true, // commented for mongoose 7.0.0 // uncomment for mongoose < 7.0.0
+  // useUnifiedTopology: true // commented for mongoose 7.0.0 // uncomment for mongoose < 7.0.0
 }
 // Connect to MongoDB using Mongoose
-const connectToDatabase = async () => {
+
+// MONGOOSE BASED CONNECTION
+const connectToDatabase: () => Promise<void> = async () => {
   try {
     await mongoose.connect(uri, options)
     console.log('Connected to MongoDB Atlas')

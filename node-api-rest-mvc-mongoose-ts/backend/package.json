@@ -9,7 +9,7 @@
     "dev": "nodemon ./src/index.ts",
     "start": "node ./src/index.ts",
     "lint": "ts-standard",
-    "lint:fix": "lint --fix",
+    "lint:fix": "ts-standard --fix",
     "test:lint": "npm run lint && npm run lint:fix",
     "test:all": "npm run test:lint && npm run start",
     "test:dev": "npm run test:lint && npm run dev"
@@ -39,7 +39,9 @@
     "zod": "^3.24.4"
   },
   "eslintConfig": {
-    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "project": "./tsconfig.json"
+    },
     "extends": "./node_modules/ts-standard/eslintrc.json"
   },
   "type": "module"

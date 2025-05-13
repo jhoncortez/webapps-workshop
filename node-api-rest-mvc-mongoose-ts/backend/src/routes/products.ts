@@ -1,4 +1,4 @@
-import { Router } from 'express' // Importing the express Router
+import { Router, Request, Response } from 'express' // Importing the express Router
 // import { randomUUID } from 'crypto'
 // import fs from 'fs'
 
@@ -13,7 +13,7 @@ import ProductsController from '../controllers/productsController.js' // This co
 // const productsData = readJSON('../db/products.json') // This code imports the products data from a JSON file using the CommonJS require function.
 // This code imports the products data from a JSON file using the CommonJS require function.
 
-const productsRouter = Router() // This code creates a new instance of the express Router, which is used to define routes for the API.
+const productsRouter: Router = Router() // This code creates a new instance of the express Router, which is used to define routes for the API.
 const productsController = new ProductsController() // This code creates a new instance of the ProductsController class, which is used to handle product-related operations.
 
 // DEFINE ROUTES
@@ -34,7 +34,7 @@ productsRouter.delete('/:id', productsController.deleteProductById)
 
 // PRELIGHT REQUESTS
 // PUT, PATCH, DELETE SHOULD BE ALLOWED
-productsRouter.options('/products/:id', (req, res) => {
+productsRouter.options('/products/:id', (req: Request, res: Response) => {
   // This code handles preflight requests for the /products endpoint and sends a response.
   // res.header('Access-Control-Allow-Origin', '*') // commenting this line to avoid CORS issues because we use the middleware
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE') // Allow only specific methods

@@ -3,7 +3,7 @@ import productsRouter from './routes/products.js' // This code imports the produ
 import { corsMiddleware } from './middlewares/cors.js' // This code imports the CORS middleware for handling cross-origin requests.
 import connectToDatabase from './config/db-connect-mongoose.js' // This code imports the connectToDatabase function from the mongoose module.
 
-const PORT = process.env.PORT ?? 3002
+const PORT = process.env.PORT ?? 3004
 
 const app: Application = express()
 app.disable('x-powered-by')
