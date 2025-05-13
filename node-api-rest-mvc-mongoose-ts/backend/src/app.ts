@@ -1,11 +1,11 @@
-import express, { json } from 'express' // This code imports the express module and the json middleware for parsing JSON requests.
-import productsRouter from '../routes/products.js' // This code imports the products router from the routes module.
-import { corsMiddleware } from '../middlewares/cors.js' // This code imports the CORS middleware for handling cross-origin requests.
-import connectToDatabase from '../config/db-connect-mongoose.js' // This code imports the connectToDatabase function from the mongoose module.
+import express, { Application, json } from 'express' // This code imports the express module and the json middleware for parsing JSON requests.
+import productsRouter from './routes/products.js' // This code imports the products router from the routes module.
+import { corsMiddleware } from './middlewares/cors.js' // This code imports the CORS middleware for handling cross-origin requests.
+import connectToDatabase from './config/db-connect-mongoose.js' // This code imports the connectToDatabase function from the mongoose module.
 
-const PORT = process.env.PORT || 3002
+const PORT = process.env.PORT ?? 3002
 
-const app = express()
+const app: Application = express()
 app.disable('x-powered-by')
 // This code disables the "X-Powered-By" header in the HTTP response.
 

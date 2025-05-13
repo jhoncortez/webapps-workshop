@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
+    "tsc": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "proxy:start": "npm run test:lint && node proxy.js",
-    "dev": "nodemon app.js",
-    "start": "node app.js",
-    "lint": "standard",
-    "lint:fix": "standard --fix",
+    "proxy:start": "npm run test:lint && node proxy.ts",
+    "dev": "nodemon ./src/index.ts",
+    "start": "node ./src/index.ts",
+    "lint": "ts-standard",
+    "lint:fix": "lint --fix",
     "test:lint": "npm run lint && npm run lint:fix",
     "test:all": "npm run test:lint && npm run start",
     "test:dev": "npm run test:lint && npm run dev"
@@ -18,8 +19,15 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/cors": "^2.8.18",
+    "@types/express": "^5.0.1",
+    "@types/mongoose": "^5.11.96",
+    "@types/node": "^22.15.17",
+    "@types/node-fetch": "^2.6.12",
     "nodemon": "^3.1.10",
-    "standard": "^17.1.2"
+    "standard": "^17.1.2",
+    "ts-standard": "^12.0.2",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "cors": "2.8.5",
@@ -31,7 +39,8 @@
     "zod": "^3.24.4"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "parser": "@typescript-eslint/parser",
+    "extends": "./node_modules/ts-standard/eslintrc.json"
   },
   "type": "module"
 }
