@@ -4,8 +4,8 @@ import { corsMiddleware } from './middlewares/cors.js' // This code imports the 
 import connectToDatabase from './config/db-connect-mongoose.js' // This code imports the connectToDatabase function from the mongoose module.
 
 const PORT = process.env.PORT ?? 3004
-
 const app: Application = express()
+
 app.disable('x-powered-by')
 // This code disables the "X-Powered-By" header in the HTTP response.
 

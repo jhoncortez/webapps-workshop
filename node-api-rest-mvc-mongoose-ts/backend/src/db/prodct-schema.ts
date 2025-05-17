@@ -1,9 +1,10 @@
 import mongoose from 'mongoose'
+import { ProductContract } from '../types'
 
 const { Schema, model } = mongoose
 
 // Define the product schema
-const productSchema = new Schema({
+const productSchema = new Schema<ProductContract>({
   name: { type: String, required: true },
   slug: { type: String, required: true },
   regular_price: { type: Number, required: true },

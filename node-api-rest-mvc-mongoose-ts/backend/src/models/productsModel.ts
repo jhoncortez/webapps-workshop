@@ -11,6 +11,7 @@
  * it uses the mongoose model to find a product by id
  * it uses the mongoose model to create a new product
 */
+import type { ProductContract, ProductResponse } from '../types/index.js'
 import Product from '../db/prodct-schema.js' // Import the Mongoose model
 
 class ProductsModel {
@@ -20,9 +21,9 @@ class ProductsModel {
    * @param {Object} options - Query options (e.g., category).
    * @returns {Array} - List of products.
    */
-  async getAllProducts ({ category }) {
+  async getAllProducts ({ category }: { category?: string }): Promise<ProductContract[]>{
     const query = category ? { 'categories.slug': category } : {}
-    return Product.find(query) // Use Mongoose to fetch products
+    return await Product.find(query) // Use Mongoose to fetch products
   }
 
   /**
@@ -30,8 +31,12 @@ class ProductsModel {
    * @param {Object} options - Query options (e.g., id).
    * @returns {Object|null} - The product object or null if not found.
    */
-  async getProductById ({ id }) {
-    return Product.findById(id) // Use Mongoose to fetch a product by ID
+  async getProductById ({ id }: { id: string}): Promise<ProductResponse> {
+    const product =  await Product.findById(id) // Use Mongoose to fetch a product by ID
+    if (!product) {
+      return { success: false, error: 'Product not found' }
+    }
+    return { success: true, data: product }
   }
 
   /**
@@ -39,9 +44,12 @@ class ProductsModel {
    * @param {Object} productData - The product data to insert.
    * @returns {Object} - The result of the insertion, including the new product's ID.
    */
-  async createProduct (productData) {
+  async createProduct ( productData: ProductContract): Promise<ProductResponse> {
     const product = new Product(productData) // Create a new product instance
-    await product.save() // Save the product to the database
+    const result = await product.save() // Save the product to the database
+    if (!result) {
+      return { success: false, error: 'The product could not be created' }
+    }
     return { success: true, data: product }
   }
 
@@ -50,12 +58,12 @@ class ProductsModel {
    * @param {Object} options - Query options (e.g., id and productData).
    * @returns {Object} - The result of the update, including the updated product or an error message.
    */
-  async updateProduct ({ id, productData }) {
+  async updateProduct ({ id, productData }: { id: string; productData: Partial<ProductContract>}): Promise<ProductResponse> {
     const product = await Product.findByIdAndUpdate(id, productData, {
       new: true // Return the updated document
     })
 
-    if (!product) {
+    if (product == null) {
       return { success: false, error: 'Product not found' }
     }
 
@@ -67,7 +75,7 @@ class ProductsModel {
    * @param {Object} options - Query options (e.g., id).
    * @returns {boolean} - True if the product was deleted, false otherwise.
    */
-  async deleteProduct ({ id }) {
+  async deleteProduct ({ id }: { id: string }): Promise<boolean> {
     const result = await Product.findByIdAndDelete(id) // Delete the product by ID
     return !!result // Return true if a product was deleted, false otherwise
   }

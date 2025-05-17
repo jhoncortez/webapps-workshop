@@ -4,7 +4,7 @@ import fetch from 'node-fetch' // Importing node-fetch for making HTTP requests
 
 const app = express()
 
-app.get('/proxy', async (req, res) => {
+app.get('/proxy', async (req: express.Request, res: express.Response) => {
   const imageUrl = req.query.url // Get the URL from the query parameter
 
   if (!imageUrl) {
