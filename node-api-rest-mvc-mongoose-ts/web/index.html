@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .product-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .product-card h3 {
+            margin: 8px 0;
+        }
+        .product-card p {
+            margin: 4px 0;
+        }
+        .delete-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .image-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+        }
+        .image-slider img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .delete-button:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Products</h1>
+    <div id="products-container"></div>
+
+    <script>
+        const productsContainer = document.getElementById('products-container');
+
+        // Fetch products from the backend
+        async function fetchProducts() {
+            try {
+                const response = await fetch('http://localhost:3002/api/products');
+                const products = await response.json();
+                displayProducts(products);
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        }
+
+        // Display products in the DOM
+        function displayProducts(products) {
+            productsContainer.innerHTML = ''; // Clear existing products
+            productsContainer.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="image-slider">
+                        ${product.images.map(image => `
+                        <img src="http://localhost:3000/proxy?url=${encodeURIComponent(image.src)}" alt="${image.alt || image.name}" title="${image.name}">
+                        `).join('')}
+                    </div>
+                    <h3>${product.name}</h3>
+                    <p>Price: $${product.price}</p>
+                    <p>Category: ${product.categories.map(category => category.name).join(', ')}</p>
+                    <button class="delete-button" data-id="${product._id}">Delete</button>
+                </div>
+            `).join('');
+
+            // Add delete functionality using event delegation
+            productsContainer.addEventListener('click', async (event) => {
+                if (event.target.classList.contains('delete-button')) {
+                    const productId = event.target.getAttribute('data-id');
+                    const productCard = event.target.closest('.product-card');
+                    await deleteProduct(productId, productCard);
+                }
+            });
+        }
+
+        // Delete product from backend and DOM
+        async function deleteProduct(productId, productCard) {
+            try {
+                const response = await fetch(`http://localhost:3002/api/products/${productId}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    productCard.remove(); // Remove product card from DOM
+                    alert('Product deleted successfully!');
+                } else {
+                    alert('Failed to delete product.');
+                }
+            } catch (error) {
+                console.error('Error deleting product:', error);
+            }
+        }
+
+        // Fetch and display products on page load
+        fetchProducts();
+    </script>
+</body>
+</html>
