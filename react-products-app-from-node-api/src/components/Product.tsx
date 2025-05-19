@@ -16,7 +16,7 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
             <h3>{ data.name }</h3> 
             Price: { data.price }
             <ProductCategories categories={ data.categories }/>
-            <button onClick={ () => onRemove(data.id) }>Remove product</button>
+            <button onClick={ () => onRemove(data._id) }>Remove product</button>
 
         </div>
     )

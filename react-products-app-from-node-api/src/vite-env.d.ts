@@ -13,7 +13,7 @@ type ImageType = {
 }
 
 type ProductType = {
-    id: string,
+    _id: string,
     name: string,
     price: string,
     categories?: CategoryType[]
@@ -33,4 +33,15 @@ interface ProductCategoriesProps {
     categories?: CategoryType[]
 }
 
-export { ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps}
+// interface ProductTypeResponse {
+//     data: ProductType[]
+//     ok: boolean 
+// }
+
+interface LoadingErrorsType {
+    loading: boolean,
+    error: string | null,
+    refreshLoading: (loading: boolean) => void,
+    refreshError: (error: string | null) => void
+}
+export { ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}

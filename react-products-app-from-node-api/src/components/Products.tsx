@@ -1,146 +1,106 @@
-import { useMemo, useState } from "react"
 import Product from "./Product"
 import CategoryFilter from "./CategoryFilter"
-import type { ProductType } from "../vite-env.d.ts"
+import { SearchProductsForm } from "./SearchProductsForm"
+import { validateSearchQuery } from "../services/formValidation"
+import { useLoadingError } from "../hooks/mainHooks"
+import { useInitCategoryFilter } from "../hooks/categoriesHooks"
+import { useInitProducts } from "../hooks/productsHooks"
 
 import '../assets/css/products.css'
 
-const initProducts: ProductType[] = [
-    {
-        id: '5678g8f9g',
-        name: 'Product 1',
-        price: '9.99',
-        categories: [
-            {
-                id: 1,
-                name: 'Category 1',
-                slug: 'category-1'
-            },
-            {
-                id: 2,
-                name: 'Category 2',
-                slug: 'category-2'
-            }
-        ],
-        images: [
-            {
-                id: 1,
-                src: 'https://via.placeholder.com/150',
-                name: 'Image 1',
-                alt: 'Image 1'
-            },
-            {
-                id: 2,
-                src: 'https://via.placeholder.com/150',
-                name: 'Image 2',
-                alt: 'Image 2'
-            }
-        ]
-    },
-    {
-        id: '5678g8f92',
-        name: 'Product 2',
-        price: '20.99',
-        categories: [
-            {
-                id: 2,
-                name: 'Category 2',
-                slug: 'category-2'
-            }
-        ],
-        images: [
-        ]
-    },
-    {
-        id: '5678g8f95',
-        name: 'Product 3',
-        price: '56.99',
-        categories: [
-            
-        ],
-        images: [
-            {
-                id: 1,
-                src: 'https://via.placeholder.com/150',
-                name: 'Image 1',
-                alt: 'Image 1'
-            }
-        ]
-    }
-]
+// Main component
 const Products = () => {
 
-    const [filteredProducts, setFilteredProducts] = useState<ProductType[]>(initProducts)
-    const [products, setProducts] = useState<ProductType[]>(initProducts)
+    const loadingErrors = useLoadingError()
 
-    // calculate categories function 
-    const calculateCategories = (products: ProductType[]) => {
-        const allCategories = products.flatMap(product => product.categories || []);
-        const uniqueCategories = Array.from(
-            new Map(allCategories.map(category => [category.id, category])).values()
-        );
-        return uniqueCategories
-    }
+    // init products custom hook
+    const { products, refreshProducts } = useInitProducts({req_url: `/products` , loadingErrors: loadingErrors})
 
-        // Memoize categories derived from the current product list
-        const categories = useMemo(() => { // memoize the result of this function
-            // if (!initProducts || initProducts.length === 0) {
-            //     return [];
-            // }
-            return calculateCategories(products)
-        }, [products]); // 
+    // init category filter custom hook
+    const { filteredProducts, categories, refreshFilteredProducts } = useInitCategoryFilter({products})
+
  
     // function to filter products by category
     const categoryFilterHandler = (categorySlug: string) => {
         if (categorySlug === 'all') {
-            setFilteredProducts(products)
+            refreshFilteredProducts(products) 
             return
         }
         const filtered = products.filter(product => product.categories?.some(category => category.slug === categorySlug))
-        setFilteredProducts(filtered)
+        refreshFilteredProducts(filtered)
     }
 
     const removeProductHandler = (id: string) => {
         // Remove the product from the main product list
-        const updatedProducts = products.filter(product => product.id !== id)
+        const updatedProducts = products.filter(product => product._id !== id)
 
         // Update the filtered product list
-        const updatedFilteredProducts = filteredProducts.filter(product => product.id !== id)
+        // const updatedFilteredProducts = filteredProducts.filter(product => product._id !== id)
 
-        setProducts(updatedProducts)
-        setFilteredProducts(updatedFilteredProducts)
+        // Update the state
+        refreshProducts(updatedProducts)
+        // setFilteredProducts(updatedFilteredProducts)
+    }
+
+    const submitSearchHandler = (searchQuery: string) => {
+
+        if(searchQuery === '') {
+            refreshFilteredProducts(products)
+            return
+        }
+
+        const validateSearchQueryResponse = validateSearchQuery(searchQuery)
+        if (!validateSearchQueryResponse.ok) {
+            loadingErrors.refreshError(validateSearchQueryResponse.message)
+            refreshFilteredProducts([])
+            return
+        }
+        const filtered = products.filter(product => product.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        if (filtered.length === 0) {
+            loadingErrors.refreshError('No products found')
+            refreshFilteredProducts([])
+            return
+        }
+        refreshFilteredProducts(filtered)
+    }
+
+    const searchInputChangeHandler = (searchQuery: string | null) => {
+        if (!searchQuery) {
+            refreshFilteredProducts(products)
+        }
     }
 
     return (
         <div>
             <h1>Products</h1>
+            
             {/* jsx structure to display the list of products */}
+            <SearchProductsForm onSearchProductSubmit={submitSearchHandler} onSearchInputChange={searchInputChangeHandler} />
             <CategoryFilter categories={categories} onFilter={categoryFilterHandler} />
             {
-                filteredProducts && filteredProducts.length > 0 ? ( 
+                loadingErrors.loading && (<p>Loading...</p>)
+            }
+            
+            {
+                !filteredProducts || filteredProducts.length === 0 ?
+                (
+                !loadingErrors.loading && (
+                    <>
+                        {
+                            loadingErrors.error && (<p>{loadingErrors.error}</p>)
+                        }
+                    </>
+                    )
+                
+                ) : ( 
                     <>
                         <div className="product-list">
-                            {filteredProducts.map(product => <Product key={product.id} data={product} onRemove={removeProductHandler} />)}
+                            {filteredProducts.map(product => <Product key={product._id} data={product} onRemove={removeProductHandler} />)}
                         </div>
                     </>
                 
-                ) : <p>No products found</p> 
+                ) 
             }
-            {/* <div className="product-list">
-
-                <div className="product-item">
-                    <h2>Product 1</h2> 
-                    <p>Description of Product 1</p>
-                </div>
-                <div className="product-item">
-                    <h2>Product 2</h2> 
-                    <p>Description of Product 2</p>
-                </div>
-                <div className="product-item">
-                    <h2>Product 3</h2> 
-                    <p>Description of Product 3</p>
-                </div>
-            </div> */}
         </div>
     )
 }

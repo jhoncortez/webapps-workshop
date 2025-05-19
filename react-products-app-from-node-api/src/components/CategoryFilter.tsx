@@ -18,7 +18,7 @@ const CategoryFilter = ({ categories, onFilter }: CategoryFilterProps) => {
         <div className="category-filter">
             <h2>Filter by Category</h2>
             <ul>
-            <li><CategoryFilterButton selected={ 'all' } category={undefined} handleFilterChange={handleFilterChange} /></li>
+            <li><CategoryFilterButton selected={ selectedCategory ? selectedCategory : 'all' } category={undefined} handleFilterChange={handleFilterChange} /></li>
             {
                 categories && categories.length > 0 && ( // check if categories is defined and not empty
                     
