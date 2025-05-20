@@ -1,14 +1,16 @@
 // import { useState } from 'react'
-import type { CategoryFilterProps } from '../vite-env'
+import type { CategoryType } from '../vite-env'
+import { useProductsContext } from '../contexts/ShopContext'
 import CategoryFilterButton from './CategoryFilterButton'
 
 import '../assets/css/categoryFilter.css'
 
 
-const CategoryFilter = ({ categories, selectedCategory, onFilter }: CategoryFilterProps) => {
+const CategoryFilter = ({ categories }: { categories: CategoryType[] | undefined | null} ) => {
 
     // const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
+    const { categorySlug: selectedCategory, refreshCategorySlug: onFilter } = useProductsContext()
     const handleFilterChange = (categorySlug: string = 'all') => {
         // setSelectedCategory(categorySlug);
         onFilter(categorySlug);

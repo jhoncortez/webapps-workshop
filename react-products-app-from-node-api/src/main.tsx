@@ -17,12 +17,18 @@
  */
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './components/Products.tsx'
+import { GlobalProvider } from './contexts/GlobalContext.tsx'
+import { ProductsProvider } from './contexts/ShopContext.tsx'
+import Products from './components/Products.tsx'
 
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <GlobalProvider>
+      <ProductsProvider>
+        <Products />
+      </ProductsProvider>
+    </GlobalProvider>
   </StrictMode>,
 )

@@ -45,4 +45,13 @@ interface LoadingErrorsType {
     refreshLoading: (loading: boolean) => void,
     refreshError: (error: string | null) => void
 }
-export { ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
+interface ProductsContextType {
+    products: ProductType[];
+    filteredProducts: ProductType[];
+    searchQuery: string;
+    categorySlug: string;
+    refreshSearchQuery: (query: string) => void;
+    refreshCategorySlug: (category: string) => void;
+    removeProduct: (id: string) => void;
+}
+export {ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}

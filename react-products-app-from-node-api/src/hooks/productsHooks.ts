@@ -1,25 +1,28 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react"
-import type { ProductType, LoadingErrorsType } from "../vite-env.d.ts"
+import type { ProductType } from "../vite-env.d.ts"
+import { useGlobalContext } from "../contexts/GlobalContext"
 import { getInitProducts, filterProducts, deleteProduct } from "../services/products"
 import { validateSearchQuery } from "../services/formValidation"
 
 // Custom hook to fetch initial product data
-export const useInitProducts = ({req_url, loadingErrors}: {req_url: string; loadingErrors: LoadingErrorsType}) => {
+export const useInitProducts = ({req_url}: {req_url: string}) => {
     const [products, setProducts] = useState<ProductType[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [categorySlug, setCategorySlug] = useState<string>("all");
+
+    const loadingErrors = useGlobalContext()
     
     const refreshSearchQuery = useCallback((query: string): void => {
         setSearchQuery(query)
     }
-    , [req_url])
+    , [])
 
     const refreshCategorySlug = useCallback((category: string): void => {
         setCategorySlug(category)
     }
-    , [req_url])
+    , [])
 
     // Fetch initial product data
     useEffect(() => {
@@ -31,14 +34,14 @@ export const useInitProducts = ({req_url, loadingErrors}: {req_url: string; load
         getInitProducts({req_url: req_url }).then(data => {
             // handle error if data is ok
             if (!data) {
-                loadingErrors.refreshError('Products not found')
+                loadingErrors.refreshError('Products not found') 
                 return []
             }
             // update the product list
             setProducts(data)
         }).catch(err => {
             console.error(err)
-            loadingErrors.refreshError('Failed to fetch products')
+            loadingErrors.refreshError('Failed to fetch products') 
         }).finally(() => {
             loadingErrors.refreshLoading(false)
         })
@@ -50,26 +53,44 @@ export const useInitProducts = ({req_url, loadingErrors}: {req_url: string; load
         const validation = validateSearchQuery(searchQuery);
 
         if (!validation.ok) {
-            loadingErrors.refreshError(validation.message); // Set the error message
+            // loadingErrors.refreshError(validation.message); // Set the error message
             return []; // Return an empty array if the query is invalid
         }
 
-        loadingErrors.refreshError(null); // Clear the error message if the query is valid
+        // loadingErrors.refreshError(null); // Clear the error message if the query is valid
 
         // Filter products by search query and category
-        const filtered = filterProducts(products, searchQuery, categorySlug);
-        if (!filtered || filtered.length === 0) {
-            loadingErrors.refreshError('Products not found');
-            return []; // Return an empty array or handle the case appropriately
-        }
-        return filtered;
+        // const filtered = filterProducts(products, searchQuery, categorySlug);
+        // if (!filtered || filtered.length === 0) {
+        //     loadingErrors.refreshError('Products not found');
+        //     return []; // Return an empty array or handle the case appropriately
+        // }
+        // return filtered;
+        const filtered = filterProducts(products, searchQuery, categorySlug)
+        return filtered || []
     }, [products, searchQuery, categorySlug]);
 
 
     // Update filtered products whenever the memoized value changes
     useEffect(() => {
-        setFilteredProducts(filteredProductsMemo);
-    }, [filteredProductsMemo]);
+
+        setFilteredProducts(filteredProductsMemo)
+
+        const validation = validateSearchQuery(searchQuery)
+
+        if (!validation.ok) {
+            loadingErrors.refreshError(validation.message) // State update moved to useEffect
+            return
+        }
+
+        if (filteredProductsMemo.length === 0) {
+            loadingErrors.refreshError('Products not found')
+            return
+        }
+
+        loadingErrors.refreshError(null); // Clear error if valid
+        
+    }, [filteredProductsMemo, searchQuery]);
 
     // Remove a product
     const removeProduct = (id: string) => {
@@ -77,9 +98,13 @@ export const useInitProducts = ({req_url, loadingErrors}: {req_url: string; load
         setProducts(updatedProducts);
     };
 
+    // testing infinit loop for re-render
+    useEffect(() => {
+        console.log('ProductsProvider rendered');
+    }, []);
+
     return {
         products,
-        searchQuery,
         categorySlug,
         filteredProducts,
         refreshSearchQuery,
