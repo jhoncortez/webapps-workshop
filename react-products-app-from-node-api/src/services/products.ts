@@ -8,6 +8,15 @@ export const getInitProducts = ( {req_url}: {req_url: string}): Promise<ProductT
     return data
 }
 
+export const filterProducts = (products: ProductType[], searchQuery: string, categorySlug: string) => products.filter((product) => {
+    const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+        categorySlug === "all" || product.categories?.some((category) => category.slug === categorySlug);
+    return matchesSearch && matchesCategory;
+});
+
+export const deleteProduct = (products: ProductType[], id: string) => products.filter(product => product._id !== id)
+
     // calculate categories function 
     export const calculateCategories = (products: ProductType[]) => {
         const allCategories = products.flatMap(product => product.categories || []);

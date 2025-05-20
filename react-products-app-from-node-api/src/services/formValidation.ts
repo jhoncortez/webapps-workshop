@@ -3,6 +3,10 @@ export const validateSearchQuery = (query: string): { ok: boolean; message: stri
     // Trim whitespace from the query
     const trimmedQuery = query.trim();
 
+    if (trimmedQuery.length === 0) {
+        return { ok: true, message: null }; // Allow empty query to show all products
+    }
+
     // Check if the query is at least 2 characters long
     if (trimmedQuery.length < 2) {
         return {ok:false, message: "Search query must be at least 2 characters long."}

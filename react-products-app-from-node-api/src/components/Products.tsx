@@ -1,7 +1,6 @@
 import Product from "./Product"
 import CategoryFilter from "./CategoryFilter"
 import { SearchProductsForm } from "./SearchProductsForm"
-import { validateSearchQuery } from "../services/formValidation"
 import { useLoadingError } from "../hooks/mainHooks"
 import { useInitCategoryFilter } from "../hooks/categoriesHooks"
 import { useInitProducts } from "../hooks/productsHooks"
@@ -14,69 +13,45 @@ const Products = () => {
     const loadingErrors = useLoadingError()
 
     // init products custom hook
-    const { products, refreshProducts } = useInitProducts({req_url: `/products` , loadingErrors: loadingErrors})
+    const { products, categorySlug, filteredProducts, refreshSearchQuery, refreshCategorySlug, removeProduct } = useInitProducts({req_url: `/products` , loadingErrors: loadingErrors})
 
     // init category filter custom hook
-    const { filteredProducts, categories, refreshFilteredProducts } = useInitCategoryFilter({products})
+    const { categories } = useInitCategoryFilter({products})
 
  
     // function to filter products by category
     const categoryFilterHandler = (categorySlug: string) => {
-        if (categorySlug === 'all') {
-            refreshFilteredProducts(products) 
-            return
-        }
-        const filtered = products.filter(product => product.categories?.some(category => category.slug === categorySlug))
-        refreshFilteredProducts(filtered)
+        refreshCategorySlug(categorySlug)
+        // if (categorySlug === 'all') {
+        //     refreshFilteredProducts(products) 
+        //     return
+        // }
+        // const filtered = products.filter(product => product.categories?.some(category => category.slug === categorySlug))
+        // refreshFilteredProducts(filtered)
     }
 
     const removeProductHandler = (id: string) => {
         // Remove the product from the main product list
-        const updatedProducts = products.filter(product => product._id !== id)
-
-        // Update the filtered product list
-        // const updatedFilteredProducts = filteredProducts.filter(product => product._id !== id)
-
-        // Update the state
-        refreshProducts(updatedProducts)
-        // setFilteredProducts(updatedFilteredProducts)
+        removeProduct(id)
+        // Remove the product from the filtered product list
     }
 
     const submitSearchHandler = (searchQuery: string) => {
-
-        if(searchQuery === '') {
-            refreshFilteredProducts(products)
-            return
-        }
-
-        const validateSearchQueryResponse = validateSearchQuery(searchQuery)
-        if (!validateSearchQueryResponse.ok) {
-            loadingErrors.refreshError(validateSearchQueryResponse.message)
-            refreshFilteredProducts([])
-            return
-        }
-        const filtered = products.filter(product => product.name.toLowerCase().includes(searchQuery.toLowerCase()))
-        if (filtered.length === 0) {
-            loadingErrors.refreshError('No products found')
-            refreshFilteredProducts([])
-            return
-        }
-        refreshFilteredProducts(filtered)
+        refreshSearchQuery(searchQuery)
     }
 
-    const searchInputChangeHandler = (searchQuery: string | null) => {
-        if (!searchQuery) {
-            refreshFilteredProducts(products)
-        }
-    }
+    // test if refreshProducts is being re-created in each render
+    // useEffect(() => {
+    //     console.log('refreshProducts', refreshCategorySlug)
+    // }, [refreshCategorySlug])
 
     return (
         <div>
             <h1>Products</h1>
             
             {/* jsx structure to display the list of products */}
-            <SearchProductsForm onSearchProductSubmit={submitSearchHandler} onSearchInputChange={searchInputChangeHandler} />
-            <CategoryFilter categories={categories} onFilter={categoryFilterHandler} />
+            <SearchProductsForm onSearchProduct={submitSearchHandler} />
+            <CategoryFilter categories={categories} selectedCategory={categorySlug} onFilter={categoryFilterHandler} />
             {
                 loadingErrors.loading && (<p>Loading...</p>)
             }
@@ -84,7 +59,7 @@ const Products = () => {
             {
                 !filteredProducts || filteredProducts.length === 0 ?
                 (
-                !loadingErrors.loading && (
+                loadingErrors.error !== null && (
                     <>
                         {
                             loadingErrors.error && (<p>{loadingErrors.error}</p>)

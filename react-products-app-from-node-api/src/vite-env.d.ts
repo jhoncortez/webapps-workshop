@@ -22,6 +22,7 @@ type ProductType = {
 
 interface CategoryFilterProps {
     categories: CategoryType[] | undefined | null;
+    selectedCategory: string;
     onFilter: (category: string) => void;
 }
 
