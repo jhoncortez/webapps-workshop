@@ -1,34 +1,30 @@
-import {useMemo, createContext, useContext} from "react"
-// import { ProductsContextType } from "../vite-env.d.ts"
-import { useInitProducts } from "../hooks/productsHooks"
+import { createContext, useContext, useState } from "react"
+import type { ProductType, ProductsContextType } from "../vite-env.d.ts"
 
 // Context for products
-const ProductsContext = createContext<ReturnType<typeof useInitProducts> | undefined>(undefined)
+
+const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
 
 export const ProductsProvider = ({children}: {children: React.ReactNode}) => {
 
-    const {
+    const [products, setProducts] = useState<ProductType[]>([]);
+    const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [categorySlug, setCategorySlug] = useState<string>("all");
+
+
+
+    const value = {
         products,
         categorySlug,
         filteredProducts,
-        refreshSearchQuery,
-        refreshCategorySlug,
-        removeProduct
-    } = useInitProducts({req_url: `/products`})
+        searchQuery,
+        setProducts,
+        setFilteredProducts,
+        setSearchQuery,
+        setCategorySlug
 
-    
-
-    const value = useMemo(() => ({
-        products,
-        categorySlug,
-        filteredProducts,
-        refreshSearchQuery,
-        refreshCategorySlug,
-        removeProduct
-
-    }), [products,
-        categorySlug,
-        filteredProducts])
+    }
 
     return (
         <ProductsContext.Provider value={value}>

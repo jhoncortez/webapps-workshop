@@ -1,5 +1,5 @@
 import { useGlobalContext } from "../contexts/GlobalContext"
-import { useProductsContext } from "../contexts/ShopContext"
+import { useInitProducts } from "../hooks/productsHooks"
 import Product from "./Product"
 import CategoryFilter from "./CategoryFilter"
 import { SearchProductsForm } from "./SearchProductsForm"
@@ -18,7 +18,7 @@ const Products = () => {
     const { products,
         filteredProducts,
         removeProduct,
-    } = useProductsContext()
+    } = useInitProducts({req_url: '/products' })
 
     // init category filter custom hook
     const { categories } = useInitCategoryFilter({products})

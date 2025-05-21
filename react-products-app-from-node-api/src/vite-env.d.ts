@@ -45,13 +45,14 @@ interface LoadingErrorsType {
     refreshLoading: (loading: boolean) => void,
     refreshError: (error: string | null) => void
 }
-interface ProductsContextType {
-    products: ProductType[];
-    filteredProducts: ProductType[];
-    searchQuery: string;
-    categorySlug: string;
-    refreshSearchQuery: (query: string) => void;
-    refreshCategorySlug: (category: string) => void;
-    removeProduct: (id: string) => void;
-}
+type ProductsContextType = {
+    products: ProductType[]
+    filteredProducts: ProductType[]
+    searchQuery: string
+    categorySlug: string
+    setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
+    setFilteredProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
+    setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+    setCategorySlug: React.Dispatch<React.SetStateAction<string>>
+};
 export {ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}

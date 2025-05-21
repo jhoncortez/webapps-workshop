@@ -10,7 +10,7 @@ const CategoryFilter = ({ categories }: { categories: CategoryType[] | undefined
 
     // const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-    const { categorySlug: selectedCategory, refreshCategorySlug: onFilter } = useProductsContext()
+    const { categorySlug: selectedCategory, setCategorySlug: onFilter } = useProductsContext()
     const handleFilterChange = (categorySlug: string = 'all') => {
         // setSelectedCategory(categorySlug);
         onFilter(categorySlug);

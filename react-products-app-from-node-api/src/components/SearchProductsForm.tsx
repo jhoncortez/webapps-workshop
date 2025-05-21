@@ -4,7 +4,7 @@ import { useProductsContext } from "../contexts/ShopContext"
 import '../assets/css/searchProductForm.css'
 export const SearchProductsForm = () => {
 
-    const { refreshSearchQuery: onSearchProduct } = useProductsContext()
+    const { setSearchQuery: onSearchProduct } = useProductsContext()
 
     const handleSearchProductSubmit = (e: React.FormEvent) => {
         e.preventDefault()
