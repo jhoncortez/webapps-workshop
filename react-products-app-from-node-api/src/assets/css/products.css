@@ -38,22 +38,88 @@
   }
   
   /* Button */
-  .product-item button {
-    width: 100%;
+  .product-item button:not(.remove-product-button) {
     padding: 0.7rem;
-    background-color: #e74c3c;
-    color: white;
     border: none;
     border-radius: var(--border-radius);
     cursor: pointer;
     transition: var(--transition);
     font-weight: 500;
   }
+  .product-item button.remove-product-button {
+    /* set button style as a a link */
+    background-color: white;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #e74c3c;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;    
+    transition: color 0.3s ease; 
+  }
   
-  .product-item button:hover {
-    background-color: #c0392b;
+  .product-item button.remove-product-button:hover {
+    color: #c0392b;
   }
 
+/* Product actions container */
+.product-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+/* Quantity input */
+.product-quantity-input {
+  width: 3rem;
+  padding: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+  /* Add to Cart Button */
+  .product-item button.add-to-cart-button {
+  /* nice backgroundcolor for add to cart */
+  width: 100%;
+  background-color: white;
+  color: #e74c3c;
+  border: 1px solid #e74c3c;
+  /*  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease; */
+}
+
+.product-item button.add-to-cart-button:hover {
+  background-color: #e74c3c;
+  color: white;
+}
+
+
+/* Remove from Cart button */
+.product-item .remove-from-cart-button {
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-item .remove-from-cart-button:hover {
+  background-color: darkred;
+}
   /* Responsive Adjustments */
 @media (min-width: 600px) {
     .product-list {

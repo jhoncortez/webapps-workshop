@@ -45,14 +45,25 @@ interface LoadingErrorsType {
     refreshLoading: (loading: boolean) => void,
     refreshError: (error: string | null) => void
 }
-type ProductsContextType = {
-    products: ProductType[]
-    filteredProducts: ProductType[]
-    searchQuery: string
-    categorySlug: string
-    setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
-    setFilteredProducts: React.Dispatch<React.SetStateAction<ProductType[]>>
-    setSearchQuery: React.Dispatch<React.SetStateAction<string>>
+interface ProductsContextType {
+    products: ProductType[],
+    filteredProducts: ProductType[],
+    searchQuery: string,
+    categorySlug: string,
+    setProducts: React.Dispatch<React.SetStateAction<ProductType[]>>,
+    setFilteredProducts: React.Dispatch<React.SetStateAction<ProductType[]>>,
+    setSearchQuery: React.Dispatch<React.SetStateAction<string>>,
     setCategorySlug: React.Dispatch<React.SetStateAction<string>>
-};
-export {ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
+}
+interface CartContextType {
+    cart: CartProductType[],
+    addToCart: (product: ProductType, quantity: number) => void,
+    removeFromCart: (id: ProductType['_id']) => void,
+    updateProductInCart: (id: string, quantity: number) => void;
+    productInCartQuantity: (id: ProductType['_id']) => number,
+}
+
+interface CartProductType extends ProductType {
+    quantity: number
+}
+export {CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}

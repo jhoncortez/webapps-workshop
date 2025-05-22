@@ -18,8 +18,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { GlobalProvider } from './contexts/GlobalContext.tsx'
-import { ProductsProvider } from './contexts/ShopContext.tsx'
+import { ProductsProvider, CartProvider } from './contexts/ShopContext.tsx'
 import Products from './components/Products.tsx'
+import Cart  from './components/Cart.tsx'
 
 import './index.css'
 
@@ -27,7 +28,10 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalProvider>
       <ProductsProvider>
-        <Products />
+        <CartProvider>
+          <Products />
+          <Cart />
+        </CartProvider>
       </ProductsProvider>
     </GlobalProvider>
   </StrictMode>,
