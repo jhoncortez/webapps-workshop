@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo, useEffect } from "react"
+import { createContext, useContext, useState, useMemo, useEffect, useReducer } from "react"
 import type { ProductType, ProductsContextType, CartContextType, CartProductType } from "../vite-env.d.ts"
 
 // Context for products
@@ -45,47 +45,25 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export const CartProvider = ({children}: {children: React.ReactNode}) => {
 
-    const [cart, setCart] = useState<CartProductType[]>([])
+    // const [cart, setCart] = useState<CartProductType[]>([])
+    const [cart, dispatch] = useReducer(cartReducer, [])
 
     const addToCart = (product: ProductType, quantity: number = 1) => {
-        // if the cart already contains the product, increase the quantity
-        // otherwise add the product to the cart
-        if (cart.some((p: CartProductType) => p._id === product._id)) {
-            setCart(cart.map((p: CartProductType) => {
-                if (p._id === product._id) {
-                    return {...p, quantity: quantity}
-                }
-                return p
-            }))
-            return
-        }
-        setCart(prevCart => [...prevCart, {...product, quantity: quantity}])
-    
-        // if the product is already in the cart, do nothing
-        // if (cart.some((p: ProductType) => p._id === product._id)) {
-        //     return
-        // }
-        // setCart(prevCart => [...prevCart, product])
+
+        dispatch({type: "ADDED_TO_CART", payload: {product, quantity}})
+
     }
 
     const removeFromCart = (id: ProductType['_id']) => {
-        // if the product is already in the cart, remove it
-        if (cart.some((p: CartProductType) => p._id === id)) {
-            setCart(prevCart => prevCart.filter((p: CartProductType) => p._id !== id))
-            return
-        }
+        
+        dispatch({type: "REMOVED_FROM_CART", payload: { id }})
     }
 
     // unused un the products and cart components
     const updateProductInCart = (id: string, quantity: number) => {
-        setCart((prevCart) => {
-            const updatedCart = [...prevCart];
-            const itemIndex = updatedCart.findIndex((item) => item._id === id);
-            if (itemIndex !== -1) {
-                updatedCart[itemIndex] = { ...updatedCart[itemIndex], quantity };
-            }
-            return updatedCart;
-        });
+
+        dispatch({type: "UPDATED_PRODUCT_IN_CART", payload: {id, quantity}})
+        
     };
 
     // get the product quantity from the cart with useMemo
@@ -95,10 +73,6 @@ export const CartProvider = ({children}: {children: React.ReactNode}) => {
         }
     }, [cart])
 
-    // calculate total price
-    // const calculateTotalPrice = (cart: CartProductType[]) => {
-    //     return cart.reduce((total, item) => total + item.price * item.quantity, 0)
-    // }
 
     const value = useMemo(() => ({
         
@@ -127,4 +101,49 @@ export const useCartContext = () => {
         throw new Error("useCartContext must be used within a CartProvider");
     }
     return context;
-};
+}
+
+export function cartReducer(
+    state: CartProductType[], 
+    action: {
+        type: string; 
+        payload: {id?: string; product?: ProductType; quantity?: number}
+    } ): CartProductType[] {
+    
+    const { type, payload } = action 
+
+    switch (type) {
+        case "ADDED_TO_CART":
+
+            if (!payload.product || !payload.product._id) {
+                throw new Error("Product or product ID is missing");
+            }            
+            // if the product is already in the cart, increase the quantity
+            if (state.some((p: CartProductType) => p._id === payload.product?._id)) {
+                return(state.map((p: CartProductType) => {
+                    if (p._id === payload.product?._id) {
+                        return {...p, quantity: payload.quantity}
+                    }
+                    return p
+                }))
+            }
+            // add the product to the cart
+            return[...state, {...payload.product, quantity: payload.quantity || 1}]
+            
+        case "REMOVED_FROM_CART":
+            return state.filter((p: CartProductType) => p._id !== payload.id)
+            
+            
+        case "UPDATED_PRODUCT_IN_CART":
+            return state.map((p: CartProductType) => {
+                if (p._id === payload.id) {
+                    return {...p, quantity: payload.quantity || 1}
+                }
+                return p
+            })
+            
+        default:
+            console.warn(`Unhandled action type: ${type}`)
+            return state
+    }
+}

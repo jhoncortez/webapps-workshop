@@ -64,6 +64,6 @@ interface CartContextType {
 }
 
 interface CartProductType extends ProductType {
-    quantity: number
+    quantity: number | undefined
 }
 export {CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
