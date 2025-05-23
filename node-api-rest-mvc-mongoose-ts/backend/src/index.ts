@@ -1,4 +1,4 @@
-import { app, PORT } from './app.ts'
+import { app, PORT } from './app.js'
 // // This code imports the Express application and port from the routing module and starts the server.
 // // It listens for incoming requests on the specified port and logs a message to the console when the server is running.
 // // Import the Express application and port from the routing module

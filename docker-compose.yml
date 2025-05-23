@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  backend:
+    build: ./node-api-rest-mvc-mongoose-ts/backend
+    ports:
+      - "3005:3005"
+    volumes:
+      - ./node-api-rest-mvc-mongoose-ts/backend:/app
+
+  frontend:
+    build: ./react-products-app-from-node-api
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./react-products-app-from-node-api:/app
+    depends_on:
+      - backend

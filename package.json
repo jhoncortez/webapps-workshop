@@ -1,0 +1,40 @@
+{
+  "name": "webapps-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init:back": "npm install --prefix ./node-api-rest-mvc-mongoose-ts/backend && npm run build --prefix ./node-api-rest-mvc-mongoose-ts/backend",
+    "init:front": "npm install --prefix ./react-products-app-from-node-api && npm run build --prefix ./react-products-app-from-node-api",
+    "init:all": "npm run init:back && npm run init:front",
+    "start:back": "npm run start --prefix ./node-api-rest-mvc-mongoose-ts/backend",
+    "start:front": "npm run preview --prefix ./react-products-app-from-node-api",
+    "start:all": "concurrently \"npm run start:front\" \"npm run start:back\" --kill-others-on-fail",
+    "start:react-node-app": "npm run init:all && npm run start:all",
+    "initdev:back": "npm install --prefix ./node-api-rest-mvc-mongoose-ts/backend",
+    "initdev:front": "npm install --prefix ./react-products-app-from-node-api",
+    "initdev:all": "npm run initdev:back && npm run initdev:front",
+    "rundev:back": "npm run test:dev --prefix ./node-api-rest-mvc-mongoose-ts/backend",
+    "rundev:front": "npm run dev --prefix react-products-app-from-node-api",
+    "rundev:all": "concurrently \"npm run rundev:back\" \"npm run rundev:front\"",
+    "dev:react-node-app": "npm run initdev:all && npm run rundev:all",
+    "dockerup:react-node-app": "docker-compose up -d",
+    "dockerdown:react-node-app": "docker-compose down",
+    "dockerstart:react-node-app": "docker-compose start",
+    "dockerstop:react-node-app": "docker-compose stop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhoncortez/webapps-workshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jhoncortez/webapps-workshop/issues"
+  },
+  "homepage": "https://github.com/jhoncortez/webapps-workshop#readme",
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -1,4 +1,4 @@
-/// <reference path="./index.d.ts" />
+/// <reference path="./index.d.js" />
 
 // create an enum for status publish and unpublish
 

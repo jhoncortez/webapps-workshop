@@ -1,6 +1,6 @@
 import cors from 'cors' // This code imports the CORS middleware for handling cross-origin requests.
 
-const ACCEPTED_ORIGINS: string[] = ['http://localhost:5173', 'http://127.0.0.1:5500', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'http://localhost:3004', 'http://localhost:3005']
+const ACCEPTED_ORIGINS: string[] = ['http://localhost:4173','http://localhost:5173', 'http://127.0.0.1:5500', 'http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'http://localhost:3004', 'http://localhost:3005']
 // This code defines a list of accepted origins for CORS requests.
 
 // This code defines a middleware function for handling CORS (Cross-Origin Resource Sharing) in an Express application.
