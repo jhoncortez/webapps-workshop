@@ -10,7 +10,7 @@ export const NavigationProvider = ({ children }: { children: React.ReactNode }) 
     const navigate = (route: Routes | string, params?: Record<string, string>) => {
         const targetRoute = getPathFromRoute(route, params || {});
         // const targetRoute = getPathFromRoute(route);
-        setCurrentRoute(targetRoute.route);
+        setCurrentRoute(targetRoute.path);
         window.history.pushState({}, "", targetRoute.path);
     };
 
@@ -41,14 +41,6 @@ export const useNavigationContext = () => {
     }
     return context;
 };
-
-// const getPathFromRoute = (route: string, params: Record<string, string>): { route: string; path: string } => {
-//   // const getPathFromRoute = match(route);
-//   // const fn = getPathFromRoute.compile();
-//     const dynamicRoute = route.startsWith("/") ? route : `/${route}`;
-//     const path = dynamicRoute.replace(/:(\w+)/g, (_, param) => params[param] || "");
-//     return { route: dynamicRoute, path };
-// };
 
 const getPathFromRoute = (route: string, params: Record<string, string>): { route: string; path: string } => {
     const dynamicRoute = route.startsWith("/") ? route : `/${route}`;

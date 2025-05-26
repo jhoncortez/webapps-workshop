@@ -1,9 +1,10 @@
 
-import { useEffect, useCallback, useMemo } from "react"
+import { useEffect, useCallback, useMemo, useRef } from "react"
 import { useProductsContext } from "../contexts/ShopContext.tsx"
 import { useGlobalContext } from "../contexts/GlobalContext"
-import { getInitProducts, filterProducts, deleteProduct } from "../services/products"
+import { getInitProducts, filterProducts, deleteProduct, getSingleProduct } from "../services/products"
 import { validateSearchQuery } from "../services/formValidation"
+import type { ProductType } from "../vite-env.d.ts"
 
 // Custom hook to fetch initial product data
 export const useInitProducts = ({req_url}: {req_url: string}) => {
@@ -110,5 +111,35 @@ export const useInitProducts = ({req_url}: {req_url: string}) => {
         refreshSearchQuery,
         refreshCategorySlug,
         removeProduct
+    }
+}
+
+// init singleProduct hook
+export const useInitSingleProduct = ({id}: {id: string}): {data: ProductType} => { 
+
+    const loadingErrors = useGlobalContext()
+    
+
+    const productRef = useRef({}) // useRef to store the product data for better performanceProductType = useRef({}); // useRef to store the product data for better performance
+    // useRef is used to store the product data so that it doesn't cause re-renders when the product data changes
+    // this is because useRef does not trigger a re-render when the value changes
+
+    useEffect(() => {
+        // set loading state to true
+        loadingErrors.refreshLoading(true);
+        // set error state to null
+        loadingErrors.refreshError(null);
+        getSingleProduct(id).then(data => {
+            productRef.current = data;
+        }).catch(err => {
+            console.error(err);
+            loadingErrors.refreshError('Failed to fetch product');
+        }).finally(() => {
+            loadingErrors.refreshLoading(false);
+        });
+    }, [id]);
+
+    return {
+        data: productRef.current as ProductType
     }
 }

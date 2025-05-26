@@ -18,24 +18,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { GlobalProvider } from './contexts/GlobalContext.tsx'
-import { ProductsProvider, CartProvider } from './contexts/ShopContext.tsx'
-import Router from './components/Router.tsx'
-import Cart  from './components/Cart.tsx'
-import { NavigationProvider } from './contexts/NavigationContext.tsx'
+import App from './components/App.tsx'
 
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalProvider>
-      <NavigationProvider>
-        <ProductsProvider>
-          <CartProvider>
-            <Router/>
-            <Cart />
-          </CartProvider>
-        </ProductsProvider>
-      </NavigationProvider>
+      <App />
     </GlobalProvider>
   </StrictMode>,
 )

@@ -87,4 +87,10 @@ interface LinkProps {
   className?: string;
   children: React.ReactNode;
 }
-export {LinkProps, Routes, NavigationContextType, CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
+
+type RouteConfig<T = unknown> = {
+  path: string;
+  Component: React.ComponentType<T>;
+}
+
+export {RouteConfig, LinkProps, Routes, NavigationContextType, CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}

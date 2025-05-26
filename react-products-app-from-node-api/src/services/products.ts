@@ -25,3 +25,12 @@ export const deleteProduct = (products: ProductType[], id: string) => products.f
         );
         return uniqueCategories
     }
+
+export const getSingleProduct = (id: string): Promise<ProductType> => {
+    console.log('getSingleProduct', id);
+    const response = fetch(`${BASE_ROOT}/products/${id}`)
+    const data = response.then(res => res.json())
+    console.log('getSingleProduct', data);
+    return data
+}
+//     if (validation.ok) {

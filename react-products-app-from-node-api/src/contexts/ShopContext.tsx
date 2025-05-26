@@ -75,9 +75,9 @@ export const CartProvider = ({children}: {children: React.ReactNode}) => {
     }), [cart])
 
     // test cart rendering
-    useEffect(() => {
-        console.log(cart)
-    }, [cart])
+    // useEffect(() => {
+    //     console.log(cart)
+    // }, [cart])
 
     return (
         <CartContext.Provider value={value}>
