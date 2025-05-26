@@ -1,4 +1,5 @@
 import type { ProductCategoriesProps } from "../vite-env.d.ts"
+import Link  from "./Link.tsx"
 
 import '../assets/css/productCategories.css'
 
@@ -16,7 +17,7 @@ export default function ProductCategories( { categories }: { categories: Product
                     {
                         categories.map(category => (
                             
-                                <li key={category.id}><a href={`/category/${category.slug}`} className="category-link">{category.name}</a></li>
+                                <li key={category.id}><Link to={`/category/:category`} params={{ category: category.slug }} className="category-link">{category.name}</Link></li>
                             
                         ))
                     }

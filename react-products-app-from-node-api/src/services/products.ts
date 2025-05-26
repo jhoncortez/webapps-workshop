@@ -1,7 +1,7 @@
 import type { ProductType } from "../vite-env.d.ts"
 
 // fetch initial product data
-const BASE_ROOT = 'http://localhost:3004/api'
+const BASE_ROOT = 'http://localhost:3005/api'
 export const getInitProducts = ( {req_url}: {req_url: string}): Promise<ProductType[]> => {
     const response = fetch(`${BASE_ROOT}${req_url}`)
     const data = response.then(res => res.json())

@@ -10,11 +10,11 @@ import type { ProductType,  } from "../vite-env.d.ts"
 import ProductImageSlider from "./ProductImageSlider.tsx"
 import ProductCategories from "./ProductCategores.tsx"
 import { useInitCart } from "../hooks/cartHooks.ts"
+import Link from "./Link.tsx"
 
 const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string) => void }) => {
     const { cart, removeFromCart, addToCart, productInCartQuantity } = useInitCart()
     const [quantity, setQuantity] = useState(1)
-
 
 
     const isInCart = cart.some((item) => item._id === data._id)
@@ -29,7 +29,7 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
     return (
         <div className="product-item">
             <ProductImageSlider images={ data.images }/>
-            <h3>{ data.name }</h3> 
+            <h3><Link to={`/product/:id`} params={{ id: data._id }}>{ data.name }</Link></h3> 
             Price: { data.price }
             <ProductCategories categories={ data.categories }/>
             <button

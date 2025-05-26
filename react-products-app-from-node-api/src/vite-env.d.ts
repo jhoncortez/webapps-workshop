@@ -66,4 +66,25 @@ interface CartContextType {
 interface CartProductType extends ProductType {
     quantity: number | undefined
 }
-export {CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
+
+// navigation types
+enum Routes {
+    PRODUCTS = '/',
+    CATEGORY = '/category/:category',
+    PRODUCT = '/product/:id',
+    ABOUT ='/about'
+}
+
+type currentRoute = string | Routes
+interface NavigationContextType {
+  routeState: {currentRoute: currentRoute, updateCurrentRoute: () => void}
+  navigate: (route: string | Routes, params?: Record<string, string>) => void;
+}
+
+interface LinkProps {
+  to: string | Routes
+  params?: Record<string, string>;
+  className?: string;
+  children: React.ReactNode;
+}
+export {LinkProps, Routes, NavigationContextType, CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
