@@ -4,27 +4,28 @@
  * @param data - The product data object containing id, name, and price information.
  * @returns A JSX element that displays product name, price, and a button to remove the product.
  */
-import { useEffect, useState } from "react"
+// import { useEffect, useState } from "react"
 import { FaCartArrowDown } from "react-icons/fa6"
 import type { ProductType,  } from "../vite-env.d.ts"
 import ProductImageSlider from "./ProductImageSlider.tsx"
 import ProductCategories from "./ProductCategores.tsx"
 import { useInitCart } from "../hooks/cartHooks.ts"
+// import { useAppDispatch, useAppSelector } from "../redux/hooks.ts"
+
 import Link from "./Link.tsx"
 
 const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string) => void }) => {
-    const { cart, removeFromCart, addToCart, productInCartQuantity } = useInitCart()
-    const [quantity, setQuantity] = useState(1)
+    const { isInCart, quantity, useAddToCart, useRemoveFromCart, useSetQuantity } = useInitCart(data._id)
+    // const [quantity, setQuantity] = useState(1)
+
+    // const cart = useAppSelector((state) => state.cart.cart)
+    // const dispatch = useAppDispatch()
+
+    const handlerAddToCart = useAddToCart
+    const handleRemoveFromCart = useRemoveFromCart
+    const handleProductquantity = useSetQuantity
 
 
-    const isInCart = cart.some((item) => item._id === data._id)
-
-    useEffect(() => {
-        
-        if (isInCart) {
-            setQuantity(productInCartQuantity(data._id))
-        }
-    },[cart, data])
 
     return (
         <div className="product-item">
@@ -40,18 +41,18 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
                 <input
                     type="number"
                     className="product-quantity-input"
-                    min="1"
+                    min="0"
                     value={quantity}
                     onChange={(e) => {
                         const value = parseInt(e.target.value, 10);
                         if (value >= 1) {
-                            setQuantity(value);
+                            handleProductquantity( value );
                         }
                     }}
                 />
                 <button
                     className="add-to-cart-button"
-                    onClick={() => addToCart(data, quantity)}
+                    onClick={() => handlerAddToCart({product:data, quantity})} // addToCart}
                 >
                     {isInCart ? ( 
                         <>
@@ -67,7 +68,7 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
                 {isInCart && (
                     <button
                         className="remove-from-cart-button"
-                        onClick={() => removeFromCart(data._id)}
+                        onClick={() => handleRemoveFromCart(data._id)}
                     >
                         <FaCartArrowDown />
                     </button>

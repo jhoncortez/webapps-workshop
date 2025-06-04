@@ -1,13 +1,18 @@
 import type {  CartProductType } from "../vite-env.d.ts"
-import { useInitCart } from "../hooks/cartHooks"
+// import { useInitCart } from "../hooks/cartHooks"
+import { useAppDispatch } from "../redux/hooks.ts"
+import {  removeFromCart, addToCart } from "../redux/features/cart/cartSlice.ts"
 
 const CartItem = ({item}: {item: CartProductType}) => {
-    const {removeFromCart, addToCart} = useInitCart()
+    // const {removeFromCart, addToCart} = useInitCart()
+    const dispatch = useAppDispatch()
+
 
     const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value, 10)
         if (value >= 1) {
-            addToCart(item, value)
+            // addToCart(item, value)
+            dispatch(addToCart({...item, quantity: value}))
         }
     }
     return (
@@ -34,7 +39,7 @@ const CartItem = ({item}: {item: CartProductType}) => {
                 />
                 <button
                     className="cart-item-remove"
-                    onClick={() => removeFromCart(item._id)}
+                    onClick={() => dispatch(removeFromCart(item._id))}
                 >
                     Remove
                 </button>

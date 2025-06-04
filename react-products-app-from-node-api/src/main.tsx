@@ -18,6 +18,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { GlobalProvider } from './contexts/GlobalContext.tsx'
+import { Provider } from 'react-redux'
+import store  from './redux/store'
+
 import App from './components/App.tsx'
 
 import './index.css'
@@ -25,7 +28,9 @@ import './index.css'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalProvider>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </GlobalProvider>
   </StrictMode>,
 )
