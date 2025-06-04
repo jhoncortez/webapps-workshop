@@ -15,7 +15,7 @@ import { useInitSingleProduct } from "../hooks/productsHooks"
 
 const SingleProduct = ({ id }: { id?: string; }) => {
     
-    console.log('targetRoute', id)
+    // console.log('targetRoute', id)
     
     const { data } =  useInitSingleProduct({ id: id as string})
     const { cart, removeFromCart, addToCart, productInCartQuantity } = useInitCart()

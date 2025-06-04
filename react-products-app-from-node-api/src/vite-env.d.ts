@@ -60,7 +60,7 @@ interface CartContextType {
     addToCart: (product: ProductType, quantity: number) => void,
     removeFromCart: (id: ProductType['_id']) => void,
     updateProductInCart: (id: string, quantity: number) => void;
-    productInCartQuantity: (id: ProductType['_id']) => number,
+    productInCartQuantity?: (id: ProductType['_id']) => number,
 }
 
 interface CartProductType extends ProductType {
@@ -77,8 +77,8 @@ enum Routes {
 
 type currentRoute = string | Routes
 interface NavigationContextType {
-  routeState: {currentRoute: currentRoute, updateCurrentRoute: () => void}
-  navigate: (route: string | Routes, params?: Record<string, string>) => void;
+  routeState: {currentRoute: currentRoute, updateCurrentRoute: (location_pathname: string=window.location.pathname) => void}
+//   navigate: (route: string | Routes, params?: Record<string, string>) => void;
 }
 
 interface LinkProps {

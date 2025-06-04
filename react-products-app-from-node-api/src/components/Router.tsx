@@ -1,11 +1,12 @@
 import React from "react";
-import { useNavigationContext } from "../contexts/NavigationContext";
-import { match } from "path-to-regexp";
+import { useNavigationHook } from "../hooks/useNavigationHook";
+import { getParamsFromRoute } from "../utils/navigation";
+// import { match } from "path-to-regexp";
 
 
 const Router =  ({ routes, children, DefaultPage }: { routes?: { path: string; component: React.ComponentType }[]; DefaultPage?: React.ComponentType ; children: React.ReactNode }) => {
 
-    const { routeState: { currentRoute } } = useNavigationContext();
+    const { routeState: { currentRoute } } = useNavigationHook();
 
     // validate routes
     // if (!routes || routes.length === 0) {
@@ -45,7 +46,7 @@ const Router =  ({ routes, children, DefaultPage }: { routes?: { path: string; c
         if (React.isValidElement(child)) {
             const props = child?.props;
             const type = child?.type;
-            console.log(props);
+            // console.log(props);
             // const routeChild = child as React.ReactElement<{ path: string; Component: React.ComponentType }>;
             if (typeof type !== "function" || type.name !== "Route") {
                 return null; // skip if the child is not a Route component
@@ -70,12 +71,8 @@ const Router =  ({ routes, children, DefaultPage }: { routes?: { path: string; c
 
     const mixedRoutes = [...(routes || []), ...(childRoutes || [])]; // merge the routes from children with the routes passed as props
 
-    // process the routes
-    const matchedRoute = mixedRoutes.find((route) => match(route.path, { decode: decodeURIComponent })(currentRoute)); // find the route that matches the current route
-    const matchedResult = matchedRoute ? match(matchedRoute.path, { decode: decodeURIComponent })(currentRoute) : null; // match the current route against the route path
-    const params = matchedResult ? matchedResult.params as Record<string, string> : {};
-
-    console.log('params', params)
+    // process the routes to get the current route and the params
+    const { matchedRoute, params } =  getParamsFromRoute(currentRoute, mixedRoutes)
 
 
     if (matchedRoute) {

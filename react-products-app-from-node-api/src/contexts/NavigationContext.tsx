@@ -1,34 +1,17 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import type { NavigationContextType, Routes } from "../vite-env.d.ts";
-import { compile } from "path-to-regexp";
+import { createContext, useContext, useState } from "react";
+import type { NavigationContextType } from "../vite-env.d.ts";
 
 const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 
 export const NavigationProvider = ({ children }: { children: React.ReactNode }) => {
-    const [currentRoute, setCurrentRoute] = useState<string>(window.location.pathname);
+    const [currentRoute, setCurrentRoute] = useState<string>(window.location.pathname)
 
-    const navigate = (route: Routes | string, params?: Record<string, string>) => {
-        const targetRoute = getPathFromRoute(route, params || {});
-        // const targetRoute = getPathFromRoute(route);
-        setCurrentRoute(targetRoute.path);
-        window.history.pushState({}, "", targetRoute.path);
-    };
 
-    const updateCurrentRoute = () => setCurrentRoute(window.location.pathname);
+    const updateCurrentRoute = (location_pathname?: string) => setCurrentRoute(location_pathname || window.location.pathname);
 
-    useEffect(() => {
-        const handlePopState = () => {
-            setCurrentRoute(window.location.pathname);
-        };
-
-        window.addEventListener("popstate", handlePopState);
-        return () => {
-            window.removeEventListener("popstate", handlePopState);
-        };
-    }, []);
 
     return (
-        <NavigationContext.Provider value={{ routeState: { currentRoute, updateCurrentRoute }, navigate }}>
+        <NavigationContext.Provider value={{ routeState: { currentRoute, updateCurrentRoute } }}>
             {children}
         </NavigationContext.Provider>
     );
@@ -42,9 +25,3 @@ export const useNavigationContext = () => {
     return context;
 };
 
-const getPathFromRoute = (route: string, params: Record<string, string>): { route: string; path: string } => {
-    const dynamicRoute = route.startsWith("/") ? route : `/${route}`;
-    const toPath = compile(dynamicRoute, { encode: encodeURIComponent });
-    const path = toPath(params);
-    return { route: dynamicRoute, path };
-};

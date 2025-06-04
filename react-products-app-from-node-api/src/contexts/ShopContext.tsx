@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo, useEffect } from "react"
+import { createContext, useContext, useState, useMemo } from "react"
 import type { ProductType, ProductsContextType, CartContextType, CartProductType } from "../vite-env.d.ts"
 import { useCartReducer } from "../reducers/cartReducer.ts"
 // Context for products
@@ -54,16 +54,6 @@ export const CartProvider = ({children}: {children: React.ReactNode}) => {
     // use cart reducer
     const {cart, addToCart, removeFromCart, updateProductInCart} = useCartReducer(initialCart) // use cart reducer
 
-    useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart)) // save cart to local storage
-    }, [cart])
-
-    // get the product quantity from the cart with useMemo
-    const productInCartQuantity = useMemo(() => {
-        return (id: string) => {
-            return cart.find((item) => item._id === id)?.quantity || 0
-        }
-    }, [cart])
 
     const value = useMemo(() => ({
         
@@ -71,7 +61,6 @@ export const CartProvider = ({children}: {children: React.ReactNode}) => {
         addToCart,
         removeFromCart,
         updateProductInCart,
-        productInCartQuantity,
     }), [cart])
 
     // test cart rendering
