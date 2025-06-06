@@ -1,4 +1,5 @@
 /// <reference path="./index.d.js" />
+import { Types } from 'mongoose'
 
 // create an enum for status publish and unpublish
 
@@ -86,3 +87,33 @@ export interface ProductResponse {
   data?: ProductContract
   error?: string
 } 
+
+export interface UserContract {
+    _id?: Types.ObjectId | undefined
+    name: string
+    email: string
+    password: string
+    preferences?: UserPreferences
+    role?: string
+    createdAt: Date
+    updatedAt: Date
+}
+
+export type UserPreferences = {
+    favoriteCategories?: string[],
+    priceRange?: {
+        min: number,
+        max: number
+    }
+}
+
+interface RequestWithUser extends Request {
+  user: UserContract;
+  session: {
+    user: {
+      id: Types.ObjectId;
+      email: string;
+      role: string;
+    };
+  };
+}
