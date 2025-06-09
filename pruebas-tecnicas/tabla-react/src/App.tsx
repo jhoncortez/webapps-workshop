@@ -148,7 +148,7 @@ function App() {
         <button onClick={handleColoringRows}>Color Rows</button>
         <button onClick={() => handleSorting('location')}>Sort by Location</button>
         <button onClick={handleRestoreInitialState}>Restore Initial State</button>
-        <input type="text" placeholder="Search..." onChange={(e) => setSearchTerm(e.target.value)} />
+        <input type="text" placeholder="Search by country..." onChange={(e) => setSearchTerm(e.target.value)} />
       </header>
       <div>
       <h1> React Table </h1>
