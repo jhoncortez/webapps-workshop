@@ -1,0 +1,5 @@
+@theme {  --font-montserrat: "Montserrat", sans-serif;
+--font-michroma: "Michroma", sans-serif; }
+
+.font-montserrat { font-family: var(--font-montserrat); }
+.font-michroma { font-family: var(--font-michroma); }

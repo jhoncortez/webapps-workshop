@@ -1,30 +1,17 @@
+@reference "tailwindcss";
+
 .search-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1rem;
+  @apply flex justify-center items-center mb-4;
 }
 
 .search-input {
-    padding: 0.5rem;
-    width: 70%;
-    max-width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
+  @apply px-2 py-2 w-[70%] max-w-[300px] border border-zinc-300 rounded text-base;
 }
 
 .search-button {
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
+  @apply px-4 py-2 ml-2 bg-cyan-500 text-white border-none rounded cursor-pointer text-base transition-colors;
 }
 
 .search-button:hover {
-    background-color: #0056b3;
+  @apply bg-cyan-600;
 }

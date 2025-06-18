@@ -1,5 +1,5 @@
 import { ProductsProvider, CartProvider } from '../contexts/ShopContext.tsx'
-import { NavigationProvider } from '../contexts/NavigationContext.tsx'
+
 import Router from './Router.tsx'
 import Cart  from './Cart.tsx'
 import Products from "./Products";
@@ -7,6 +7,11 @@ import SingleProduct from "./SingleProduct"
 import CategoryProducts from "./CategoryProducts"
 import Default from "./Default.tsx"
 import Route from "./Route.tsx"
+import Login from "./Login.tsx"
+import Register from "./Register.tsx"
+import ProfileRoute from "./ProfileRoute.tsx";
+// import Navbar from './Navbar.tsx';
+
 // import type { RouteConfig } from '../vite-env.d.ts'
 
 /**
@@ -33,19 +38,23 @@ const App = () => {
         // { path: "/:*", component: Default }
     ]
   return (
-    <NavigationProvider>
+    
+    
         <ProductsProvider>
           <CartProvider>
+            {/* <Navbar /> */}
             <Router routes={routes} DefaultPage={Default}>
               <Route path="/shop" Component={Products} />
               <Route path="/product/:id" Component={SingleProduct} />
               <Route path="/category/:category" Component={CategoryProducts} />
+              <Route path="/login" Component={Login} />
+              <Route path="/register" Component={Register} />
+              <Route path="/profile" Component={ProfileRoute} />
               {/* <Route path="*" Component={Default} /> */}
             </Router>
             <Cart />
           </CartProvider>
         </ProductsProvider>
-    </NavigationProvider>
   );
 }
 

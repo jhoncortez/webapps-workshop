@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import type { RequestWithUser } from '../types/index.js'
 import UsersModel from '../models/usersModel.js'
-import { UserContract } from '../types'
+import { UserContract, UserResponse } from '../types'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { Types } from 'mongoose'
@@ -57,19 +57,32 @@ class AuthController {
                 res.status(400).json({ message: 'User already exists' })
                 return
             }
-            console.log(user)
+
+            // validation of password
+            if (password.length < 8) {
+                res.status(400).json({ message: 'Password must be at least 8 characters' })
+                return
+            }
+            // validation of password characters
+            if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password)) {
+                res.status(400).json({ message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character' })
+                return
+            }
 
             // 2 create user
             const result = await this.usersModel.createUser({ name,  email, password, role } as UserContract)
+            
+
 
             // check if user was created
-            if (result) {
+            if (result.success) {
+                const user = result.data
 
                 // 3 generate token
-                const token = this.signToken({ id: result._id , email: result.email, role: result.role}  as { id: Types.ObjectId, email: string, role: string })
+                const token = this.signToken({ id: user?._id , email: user?.email, role: user?.role}  as { id: Types.ObjectId, email: string, role: string })
                 
                 // 4 set cookie
-                res.cookie('token', token, { httpOnly: true, secure: this.ENVIRONMENT === 'production', sameSite: 'strict', maxAge: this.JWT_EXPIRES_IN })
+                res.cookie('token', token, { httpOnly: true, secure: this.ENVIRONMENT === 'production' || this.ENVIRONMENT === 'staging' || this.ENVIRONMENT === 'development', sameSite: 'none', maxAge: this.JWT_EXPIRES_IN })
                 
                 // 5 send response
                 res.status(201).json({ user: result })
@@ -118,7 +131,7 @@ class AuthController {
                 const token = this.signToken({ id: user._id, email: user.email, role: user.role } as { id: Types.ObjectId, email: string, role: string })
                 // return { user: result, token }
                 // set cookie
-                res.cookie('token', token, { httpOnly: true, secure: this.ENVIRONMENT === 'production', sameSite: 'none', maxAge: this.JWT_EXPIRES_IN })
+                res.cookie('token', token, { httpOnly: true, secure: this.ENVIRONMENT === 'production' || this.ENVIRONMENT === 'staging' || this.ENVIRONMENT === 'development', sameSite: 'none', maxAge: this.JWT_EXPIRES_IN })
                 
                 // return user
                 res.status(200).json({ user: { id: user._id, email: user.email, role: user.role, preferences: user.preferences } })
@@ -150,8 +163,14 @@ class AuthController {
             }
 
             // get user
-            const data = await this.usersModel.getUserById(user.id as Types.ObjectId)
+            const result = await this.usersModel.getUserById(user.id as Types.ObjectId)
 
+            if (!result.success || !result.data) {
+                res.status(401).json({ message: 'User not found' })
+                return
+            }
+
+            const data = result.data
             // check if user exists
             if (!data || data.email !== user.email) {
                 // if user does not exist, return unauthorized

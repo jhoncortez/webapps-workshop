@@ -11,7 +11,7 @@ export const useInitCart = (productId?: string) => {
 
     const [isInCart, setIsInCart] = useState(false)
     const [quantity, setQuantity] = useState(1)
-    console.log(isInCart, quantity)
+    // console.log(isInCart, quantity)
 
     const useAddToCart = useMemo(() => ({product, quantity}: {product: ProductType, quantity: number}) => {
         dispatch(addToCart({...product, quantity}))
@@ -47,7 +47,7 @@ export const useInitCart = (productId?: string) => {
     
     // check if the product is in the cart
     useEffect(() => {
-        console.log(productId, cart.some((item) => item._id === productId))
+        // console.log(productId, cart.some((item) => item._id === productId))
         setIsInCart(cart.some((item) => item._id === productId))
     },[cart, productId])
     

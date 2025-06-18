@@ -17,9 +17,12 @@ export const SearchProductsForm = () => {
         onSearchProduct(searchSubmitQuery)
     }
     return (
-        <form onSubmit={handleSearchProductSubmit} className="search-form">
-            <input name="search" type="text" placeholder="Search product" onChange={(e) => onSearchProduct(e.target.value)} className="search-input" />
-            <button type="submit" className="search-button">Search</button>
-        </form>
+        <>
+            <h2>Search Product</h2>
+            <form onSubmit={handleSearchProductSubmit} className="search-form">
+                <input name="search" type="text" placeholder="Type product name" onChange={(e) => onSearchProduct(e.target.value)} className="search-input" />
+                <button type="submit" className="search-button">Search</button>
+            </form>
+        </>
     )
 }

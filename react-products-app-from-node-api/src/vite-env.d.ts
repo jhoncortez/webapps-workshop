@@ -93,4 +93,30 @@ type RouteConfig<T = unknown> = {
   Component: React.ComponentType<T>;
 }
 
-export {RouteConfig, LinkProps, Routes, NavigationContextType, CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}
+export type UserPreferences = {
+    favoriteCategories?: string[],
+    priceRange?: {
+        min: number,
+        max: number
+    }
+}
+
+interface AuthenticatedUser {
+    _id: string,
+    email: string,
+    // role: string,
+    // preferences?: UserPreferences
+    error?: string
+}
+
+interface RequestedProfile extends AuthenticatedUser {
+    name: string
+    // password?: string | undefined
+}
+
+type ProfileDataBody =  {
+  name: string;
+  email: string;
+}
+
+export {RequestedProfile, ProfileDataBody, AuthenticatedUser, RouteConfig, LinkProps, Routes, NavigationContextType, CartProductType, CartContextType, ProductsContextType, ProductType, CategoryFilterProps, CategoryType, ImageType, ProductImagesSliderProps, ProductCategoriesProps, LoadingErrorsType}

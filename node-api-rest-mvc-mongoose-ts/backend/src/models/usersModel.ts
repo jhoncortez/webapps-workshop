@@ -1,5 +1,5 @@
 import User from '../db/users-schema.js'
-import { UserContract } from '../types'
+import type { UserContract, UserResponse } from '../types'
 import type { Types } from 'mongoose'
 
 // type CraatedUserResult = {
@@ -13,27 +13,45 @@ export default class UsersModel {
         const users = await User.find()
         return users
     }
-    async getUserById (id: Types.ObjectId) {
+    async processResult (result: UserContract): Promise<UserResponse> {
+
+        let error = null
+        if (!result) {
+            error = 'No user found'
+            return { success: false, error, data: null }
+        }  
+        const resultClient = {
+            _id: result._id,
+            name: result.name,
+            email: result.email,
+            role: result.role,
+            createdAt: result.createdAt,
+            updatedAt: result.updatedAt
+        }
+        return { success: true, error, data: resultClient }
+    }
+    async getUserById (id: Types.ObjectId): Promise<UserResponse> {
         const user = await User.findById(id)
-        return user
+        return this.processResult(user as UserContract) 
     }
     async getUserByEmail (email: string) {
         const user = await User.findOne({ email })
         return user
     }
-    async createUser (user: UserContract) {
+    async createUser (user: UserContract) : Promise<UserResponse> {
         const result = await User.create(user)
-        const resultClient = {
-            _id: result._id,
-            name: result.name,
-            email: result.email,
-            role: result.role
-        }
-        return resultClient 
+        console.log('result from register', result)
+        // const resultClient = {
+        //     _id: result._id,
+        //     name: result.name,
+        //     email: result.email,
+        //     role: result.role
+        // }
+        return this.processResult(result) 
     }
-    async updateUser (id: Types.ObjectId, user: { name?: string; email?: string; role?: string }) {
+    async updateUser (id: Types.ObjectId, user: { name?: string; email?: string; role?: string }): Promise<UserResponse> {
         const result = await User.findByIdAndUpdate(id, user)
-        return result
+        return this.processResult(result as UserContract) 
     }
     async deleteUser (id: Types.ObjectId) {
         const result = await User.findByIdAndDelete(id)

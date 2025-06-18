@@ -23,12 +23,32 @@ class ProfileController {
                 res.status(400).json({ message: 'Invalid request body' })
                 return
             }
-            const user = await this.usersModel.updateUser((req as RequestWithUser | any ).user._id as Types.ObjectId, req.body as { name?: string, email?: string, role?: string })
+
+            const { name, email, role } = req.body as UserContract
+
+                        //1 check if user already exists
+            const userByEmail = await this.usersModel.getUserByEmail(email)
+
+            // if there is not changes in email or name then do not update
+            if( email == (req as RequestWithUser | any ).user.email && name == (req as RequestWithUser | any ).user.name ) {
+                res.status(200).json((req as RequestWithUser | any ).user)
+                return
+            }
+
+            if (userByEmail && userByEmail.email !== (req as RequestWithUser | any ).user.email && userByEmail.email === email) {
+                // throw new Error('The email is not available')
+                res.status(400).json({ message: 'The email is not available' })
+                return
+            }
+        
+
+            // validate data
+            const user = await this.usersModel.updateUser((req as RequestWithUser | any ).user._id as Types.ObjectId, { name, email, role } as UserContract)
             res.status(200).json(user)
             return
         } catch (error) {
             console.error('Error updating profile:', error)
-            res.status(500).json({ message: 'Internal server error' })
+            res.status(500).json({ message: 'Failed to update profile' })
             return
         }
     }

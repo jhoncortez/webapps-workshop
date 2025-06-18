@@ -10,10 +10,10 @@ export const getParamsFromRoute = (currentRoute: string, mixedRoutes: { path: st
 
     const matchedRoute = mixedRoutes.find((route) => match(route.path, { decode: decodeURIComponent })(currentRoute)); // find the route that matches the current route
     const matchedResult = matchedRoute ? match(matchedRoute.path, { decode: decodeURIComponent })(currentRoute) : null; // match the current route against the route path
-    // console.log('matchedResult', matchedResult)
+    // // console.log('matchedResult', matchedResult)
     const params = matchedResult ? matchedResult.params as Record<string, string> : {};
 
-    // console.log('params', params)
+    // // console.log('params', params)
     return {
         matchedRoute,
         params,

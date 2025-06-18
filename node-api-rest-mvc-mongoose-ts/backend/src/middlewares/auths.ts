@@ -19,10 +19,13 @@ const authenticateMiddleware = (req: Request , res: Response, next: NextFunction
 
     try {
         const token = req.cookies.token
+        console.log('token', token);
         // This code verifies the JWT token using the secret key and assigns the decoded user data to the session.
         // If the token is valid, it sets the user in the session to the decoded data.
         // If the token is invalid, it catches the error and logs it to the console.
+        // if(token === undefined) return
         let decoded = jwt.verify(token , process.env.JWT_SECRET || 'secret') as JwtPayload
+        // console.log(decoded);
         (req as RequestWithUser | any).session.user = decoded 
         // res.setHeader('Access-Control-Allow-Credentials', 'true') // This code sets the Access-Control-Allow-Credentials header to true, allowing cookies to be sent with cross-origin requests.
         

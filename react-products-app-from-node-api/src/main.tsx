@@ -19,7 +19,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { GlobalProvider } from './contexts/GlobalContext.tsx'
 import { Provider } from 'react-redux'
-import store  from './redux/store'
+import { AuthProvider } from './contexts/AuthContext.tsx'
+import { NavigationProvider } from './contexts/NavigationContext.tsx'
+import Navbar from './components/Navbar.tsx'
+import Footer from './components/Footer.tsx'
+
+import store, { persistor }  from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 import App from './components/App.tsx'
 
@@ -29,7 +35,18 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalProvider>
       <Provider store={store}>
-        <App />
+        <PersistGate loading={null} persistor={persistor} >
+          <AuthProvider>
+            <NavigationProvider>
+
+              <Navbar />
+              <App />
+              <Footer />
+
+            </NavigationProvider>
+            
+          </AuthProvider>
+        </PersistGate>
       </Provider>
     </GlobalProvider>
   </StrictMode>,

@@ -47,17 +47,28 @@ const Products = () => {
 
     // // test if refreshProducts is being re-created in each render
     // // useEffect(() => {
-    // //     console.log('refreshSearchQuery', refreshCategorySlug)
+    // //     // console.log('refreshSearchQuery', refreshCategorySlug)
     // // }, [refreshCategorySlug])
     
 
     return (
         <div>
-            <h1>Products</h1>
+            <h1 className="text-center">AIShop now!</h1>
             
             {/* jsx structure to display the list of products */}
-            <SearchProductsForm />
-            <CategoryFilter categories={categories} />
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="col-span-2">
+                    <CategoryFilter categories={categories} />
+                </div>
+
+                <div className="col-span-1">
+                    <SearchProductsForm />
+                </div>
+
+            </div>
+            
+            
+            
             {
                 loadingErrors.loading && (<p>Loading...</p>)
             }

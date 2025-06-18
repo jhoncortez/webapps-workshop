@@ -101,7 +101,7 @@ export const useInitProducts = ({req_url}: {req_url: string}) => {
 
     // testing infinit loop for re-render
     useEffect(() => {
-        console.log('ProductsProvider rendered');
+        // console.log('ProductsProvider rendered');
     }, []);
 
     return {

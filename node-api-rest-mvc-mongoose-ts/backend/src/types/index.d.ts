@@ -107,7 +107,7 @@ export type UserPreferences = {
     }
 }
 
-interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request {
   user: UserContract;
   session: {
     user: {
@@ -116,4 +116,9 @@ interface RequestWithUser extends Request {
       role: string;
     };
   };
+}
+export interface UserResponse {
+    success: boolean
+    data?:  Omit<UserContract, 'password'> | null
+    error?: string | null
 }

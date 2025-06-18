@@ -15,7 +15,7 @@ import { useInitCart } from "../hooks/cartHooks.ts"
 
 const SingleProduct = ({ id }: { id?: string; }) => {
     
-    // console.log('targetRoute', id)
+    // // console.log('targetRoute', id)
     
     const { data } =  useInitSingleProduct({ id: id as string})
     const { isInCart, quantity, useAddToCart, useRemoveFromCart, useSetQuantity } = useInitCart(data._id)
@@ -32,7 +32,7 @@ const SingleProduct = ({ id }: { id?: string; }) => {
         <div className="product-item">
             <ProductImageSlider images={ data.images }/>
             <h3><Link to={`/product/:id`} params={{ id: data._id }}>{ data.name }</Link></h3> 
-            Price: { data.price }
+            <span className="product-price">Price: { data.price }</span>
             <ProductCategories categories={ data.categories }/>
 
 <div className="product-actions">

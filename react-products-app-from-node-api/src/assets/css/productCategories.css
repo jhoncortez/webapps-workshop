@@ -1,61 +1,41 @@
-/* Product Categories Module */
+@reference "tailwindcss";
+
 .product-categories {
-    margin: 1.5rem 0;
-  }
-  
-  .product-categories .label {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-  }
-  
-  .product-categories .category-list {
-    display: flex;
-    gap: 0.8rem;
-    list-style: none;
-    overflow-x: auto;
-    padding-bottom: 0.5rem; /* Space for scrollbar if needed */
-    scrollbar-width: thin; /* For Firefox */
-  }
-  
-  /* For Webkit browsers */
-  .product-categories .category-list::-webkit-scrollbar {
-    height: 4px;
-  }
-  
-  .product-categories .category-list::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.2);
-    border-radius: 2px;
-  }
-  
-  .product-categories .category-item {
-    flex: 0 0 auto; /* Prevent items from stretching */
-  }
-  
-  .product-categories .category-link {
-    display: block;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-    color: #e74c3c; /* Same as remove button */
-    text-decoration: none;
-    border: 1px solid rgba(231, 76, 60, 0.3);
-    border-radius: 1rem;
-    transition: var(--transition);
-    white-space: nowrap;
-  }
-  
-  .product-categories .category-link:hover,
-  .product-categories .category-link:focus {
-    background-color: #e74c3c; /* Same as remove button hover */
-    color: white;
-    border-color: #e74c3c;
-  }
-  
-  .product-categories .category-link.active {
-    background-color: #e74c3c;
-    color: white;
-    border-color: #e74c3c;
-    font-weight: 500;
-  }
+  @apply my-6;
+}
+
+.product-categories .label {
+  @apply block text-sm text-red-500 mb-2 font-medium;
+}
+
+.product-categories .category-list {
+  @apply flex gap-2 list-none overflow-x-auto pb-2 px-[0];
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: rgba(0,0,0,0.2) transparent; /* Firefox */
+}
+
+.product-categories .category-item {
+  @apply flex-shrink-0;
+}
+
+.product-categories .category-link {
+  @apply block px-3 py-1 text-xs text-red-500 border border-red-200 rounded-full whitespace-nowrap transition-colors;
+}
+
+.product-categories .category-link:hover,
+.product-categories .category-link:focus {
+  @apply bg-red-500 text-white border-red-500;
+}
+
+.product-categories .category-link.active {
+  @apply bg-red-500 text-white border-red-500 font-medium;
+}
+
+/* Custom scrollbar for Webkit browsers */
+.product-categories .category-list::-webkit-scrollbar {
+  height: 4px;
+}
+.product-categories .category-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 2px;
+}

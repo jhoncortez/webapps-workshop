@@ -46,7 +46,7 @@ const Router =  ({ routes, children, DefaultPage }: { routes?: { path: string; c
         if (React.isValidElement(child)) {
             const props = child?.props;
             const type = child?.type;
-            // console.log(props);
+            // // console.log(props);
             // const routeChild = child as React.ReactElement<{ path: string; Component: React.ComponentType }>;
             if (typeof type !== "function" || type.name !== "Route") {
                 return null; // skip if the child is not a Route component
@@ -67,7 +67,7 @@ const Router =  ({ routes, children, DefaultPage }: { routes?: { path: string; c
         return null;
     })
 
-    // console.log("Child Routes: ", childRoutes);
+    // // console.log("Child Routes: ", childRoutes);
 
     const mixedRoutes = [...(routes || []), ...(childRoutes || [])]; // merge the routes from children with the routes passed as props
 

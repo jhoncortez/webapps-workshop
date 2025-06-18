@@ -34,7 +34,7 @@ export const useNavigationHook = () => {
     // Listen for popstate events
     useEffect(() => {
         // routeState.updateCurrentRoute()
-        // console.log(routeState.currentRoute)
+        // // console.log(routeState.currentRoute)
         window.addEventListener("popstate", handlePopState); // Listen for popstate events
         return () => {
             window.removeEventListener("popstate", handlePopState); // Clean up

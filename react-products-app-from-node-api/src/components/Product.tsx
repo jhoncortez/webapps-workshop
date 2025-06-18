@@ -31,11 +31,11 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
         <div className="product-item">
             <ProductImageSlider images={ data.images }/>
             <h3><Link to={`/product/:id`} params={{ id: data._id }}>{ data.name }</Link></h3> 
-            Price: { data.price }
+            <span className="product-price">Price: { data.price }</span>
             <ProductCategories categories={ data.categories }/>
-            <button
+            {/* <button
             className="remove-product-button" 
-            onClick={ () => onRemove(data._id) }>Remove product</button>
+            onClick={ () => onRemove(data._id) }>Remove product</button> */}
 
 <div className="product-actions">
                 <input

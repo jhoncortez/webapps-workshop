@@ -65,7 +65,7 @@ export const CartProvider = ({children}: {children: React.ReactNode}) => {
 
     // test cart rendering
     // useEffect(() => {
-    //     console.log(cart)
+    //     // console.log(cart)
     // }, [cart])
 
     return (
