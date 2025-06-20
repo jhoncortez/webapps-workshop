@@ -1,4 +1,4 @@
-import type {RequestedProfile, ProfileDataBody} from '../vite-env.d.ts'
+import type {RequestedProfile, ProfileDataBody} from '../../vite-env.d.ts'
 const BASE_API_ROOT = 'http://localhost:3005/api'
 
 const processResponse = async (response: Response): Promise<RequestedProfile> => {

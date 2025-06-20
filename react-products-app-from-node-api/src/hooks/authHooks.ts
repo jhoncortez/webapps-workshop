@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 // import { createSelector } from "@reduxjs/toolkit"
 import { useAppDispatch, useAppSelector } from "../redux/hooks.ts"
-import { loginRequest, registerRequest, logoutAction } from "../redux/features/auth/authSlice.ts"
+import { loginRequest, registerRequest, logoutAction } from "../rtk/features/auth/authSlice.ts"
 
 export const useInitAuth = () => {
 

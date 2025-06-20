@@ -1,6 +1,7 @@
 import express, { Application, json } from 'express' // This code imports the express module and the json middleware for parsing JSON requests.
 import productsRouter from './routes/products.js' // This code imports the products router from the routes module.
 import authRouter from './routes/authRoutes.js'
+import cartRouter from './routes/cartRoutes.js'
 import profileRouter  from './routes/profileRoutes.js' // This code imports the profile router from the profileRoutes module.
 import { corsMiddleware } from './middlewares/cors.js' // This code imports the CORS middleware for handling cross-origin requests.
 import authenticateMiddleware from './middlewares/auths.js' // This code imports the authentication middleware for handling user authentication.
@@ -31,6 +32,8 @@ app.use('/api/products', productsRouter)
 app.use('/api/auth', authRouter)
 
 app.use('/api/profile', profileRouter)
+
+app.use('/api/cart', cartRouter)
 // This code mounts the products router on the "/api/products" path.
 
 // export the routing object

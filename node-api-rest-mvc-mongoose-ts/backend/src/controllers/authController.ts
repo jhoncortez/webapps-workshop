@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { Types } from 'mongoose'
 import dotenv from 'dotenv' // MongoDB connection URI
+import type { AuthenticatedUser, Session } from '../types'
 dotenv.config() // Load environment variables from .env file
 
 
@@ -17,9 +18,7 @@ class AuthController {
     // private model: UsersModel = new UsersModel()
     constructor() {
         
-        console.log('AuthController initialized')
         this.usersModel = new UsersModel()
-        console.log(this.usersModel)
         this.JWT_SECRET = process.env.JWT_SECRET || 'secret' // Default secret key, should be replaced with a secure key in production
         this.JWT_EXPIRES_IN = parseInt(process.env.JWT_EXPIRATION || '604800', 10) || 604800 // 7 days
         this.ENVIRONMENT = process.env.NODE_ENV || 'development'
@@ -53,7 +52,7 @@ class AuthController {
             //1 check if user already exists
             const user = await this.usersModel.getUserByEmail(email)
 
-            if (user) {
+            if (user.success && user.data) {
                 res.status(400).json({ message: 'User already exists' })
                 return
             }
@@ -75,7 +74,8 @@ class AuthController {
 
 
             // check if user was created
-            if (result.success) {
+            if (result.success && result.data) {
+
                 const user = result.data
 
                 // 3 generate token
@@ -112,13 +112,15 @@ class AuthController {
             }
 
             // check if use exists
-            const user = await this.usersModel.getUserByEmail(email)
-            if (!user) {
-                res.status(401).json({ message: 'User not found' })
+            const response = await this.usersModel.getUserByEmail(email)
+
+            if (!response.success || !response.data) {
+                res.status(401).json({ message: response.error || 'User not found' })
                 return
             }
 
-            console.log(user)
+            const user = response.data
+
             // check password
             if (! await bcrypt.compare(password, user.password)) {
                 res.status(401).json({ message: 'Invalid password' })
@@ -137,6 +139,7 @@ class AuthController {
                 res.status(200).json({ user: { id: user._id, email: user.email, role: user.role, preferences: user.preferences } })
                 return
             }
+
         } catch (error) {
             res.status(500).json({ message: 'Failed to login user', error })
             return
@@ -150,11 +153,12 @@ class AuthController {
      * @param {NextFunction} next - The next middleware function.
      * @returns {void}
      */
-    protectedRoute = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    protectedRoute = async (req: RequestWithUser | any, res: Response, next: NextFunction): Promise<void> => {
         try {
 
-            const { user } = (req as RequestWithUser | any).session
+            const { user }  = req.session as Session
 
+            // console.log('request from session:', req)
             console.log('user from session:', user)
 
             if (!user) {
@@ -163,26 +167,17 @@ class AuthController {
             }
 
             // get user
-            const result = await this.usersModel.getUserById(user.id as Types.ObjectId)
+            // const result = await this.usersModel.getUserById({ id: user._id })
 
-            if (!result.success || !result.data) {
-                res.status(401).json({ message: 'User not found' })
-                return
-            }
+            // console.log('result:', result)
 
-            const data = result.data
-            // check if user exists
-            if (!data || data.email !== user.email) {
-                // if user does not exist, return unauthorized
-                console.log('User not found or email mismatch')
-                console.log(data)
-                console.log(user.email)
-                res.status(401).json({ message: 'User not found or email mismatch' })
-                return
-            }
+            // if (!result.success || !result.data) {
+            //     res.status(401).json({ message: result.error })
+            //     return
+            // }
 
             // try to assign user to request to use in next middleware
-            (req as RequestWithUser | any).user = data
+            req.user = user
             next()
         } catch (error) {
             res.status(401).json({ message: 'Unauthorized', error: error })

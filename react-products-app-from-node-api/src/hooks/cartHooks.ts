@@ -1,23 +1,25 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, useCallback } from "react"
 import type { ProductType } from "../vite-env.d.ts"
 // import { useCartContext } from "../contexts/ShopContext";
 import { removeFromCart, addToCart } from "../redux/features/cart/cartSlice.ts"
 import { useAppDispatch, useAppSelector } from "../redux/hooks.ts"
+import type { CartProductType } from "../vite-env.d.ts"
 // import { useCartContext } from "../contexts/ShopContext.tsx"
 
 export const useInitCart = (productId?: string) => {
-    const cart = useAppSelector((state) => state.cart.cart)
+    const cart: CartProductType[] = useAppSelector((state) => state.cart.cart)
     const dispatch = useAppDispatch()
 
     const [isInCart, setIsInCart] = useState(false)
     const [quantity, setQuantity] = useState(1)
     // console.log(isInCart, quantity)
 
-    const useAddToCart = useMemo(() => ({product, quantity}: {product: ProductType, quantity: number}) => {
+    
+    const dispatchAddToCart = useCallback(({product, quantity}: {product: ProductType, quantity: number}) => {
         dispatch(addToCart({...product, quantity}))
     }, [])
 
-    const useRemoveFromCart = useMemo(() => (id: string) => {
+    const dispatchRemoveFromCart = useCallback((id: string) => {
         dispatch(removeFromCart(id))
     }, [])
 
@@ -29,11 +31,11 @@ export const useInitCart = (productId?: string) => {
         return cart.find((item) => item._id === id)
     }, [])
 
-    const useSetInCart = useMemo(() => (id: string) => {
+    const handleSetInCart = useCallback((id: string) => {
         setIsInCart(cart.some((item) => item._id === id))
     }, [cart])
 
-    const useSetQuantity = useMemo(() => (value: number) => {
+    const handleSetQuantity = useCallback((value: number) => {
         setQuantity(value)
     }, [])
 
@@ -58,5 +60,5 @@ export const useInitCart = (productId?: string) => {
         setQuantity(productInCartQuantity(productId as string))
     }, [isInCart, cart])
 
-    return { isInCart, quantity, cart, useAddToCart, useRemoveFromCart, productInCartQuantity, productInCart, useSetInCart, useSetQuantity } // return useCartContext()
+    return { isInCart, quantity, cart, dispatchAddToCart, dispatchRemoveFromCart, productInCartQuantity, productInCart, handleSetInCart, handleSetQuantity } // return useCartContext()
 }

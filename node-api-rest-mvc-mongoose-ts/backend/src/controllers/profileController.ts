@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import UsersModel from '../models/usersModel.js'
-import { RequestWithUser, UserContract } from '../types/index.js'
+import { RequestWithUser, UserContract, AuthenticatedUser } from '../types/index.js'
 import { Types } from 'mongoose'
 import bcrypt from 'bcryptjs'
 
@@ -10,13 +10,28 @@ class ProfileController {
         this.usersModel = new UsersModel()  
     }
 
-    getMyProfile = (req: Request, res: Response) => {
-        // const user = await UsersModel.getUserById(req.user.id);
-        res.status(200).json((req as RequestWithUser | any ).user)
-        return
+    getMyProfile = async (req:  RequestWithUser | any , res: Response): Promise<void> => {
+        try {
+            if (!req.user) {
+                res.status(401).json({ message: 'Unauthorized' })
+                return
+            }
+
+            const user = await this.usersModel.getUserById({ id: req.user.id });
+            if (!user.success) {
+                res.status(404).json({ message: user.error })
+                return
+            }
+            res.status(200).json(user.data)
+            return
+        } catch (error) {
+            res.status(500).json({ message: error })
+            return
+        }
+        
     }
     
-    updateProfile = async (req: Request, res: Response): Promise<void> => {
+    updateProfile = async (req:  RequestWithUser | any , res: Response): Promise<void> => {
         try {
             // Validate the request body
             if (!req.body || typeof req.body !== 'object') {
@@ -26,25 +41,31 @@ class ProfileController {
 
             const { name, email, role } = req.body as UserContract
 
-                        //1 check if user already exists
+            // if there is not changes in email or name then do not update
+            if( email === req.user.email && name === req.user.name ) {
+                res.status(200).json(req.user)
+                return
+            }
+
+            // check if user already exists
             const userByEmail = await this.usersModel.getUserByEmail(email)
 
-            // if there is not changes in email or name then do not update
-            if( email == (req as RequestWithUser | any ).user.email && name == (req as RequestWithUser | any ).user.name ) {
-                res.status(200).json((req as RequestWithUser | any ).user)
+            // email already exists
+            if (userByEmail.success && userByEmail.data?.email === email && userByEmail.data?._id.toString() !== req.user.id) {
+                res.status(400).json({ message: 'Email already exists' })
                 return
             }
-
-            if (userByEmail && userByEmail.email !== (req as RequestWithUser | any ).user.email && userByEmail.email === email) {
-                // throw new Error('The email is not available')
-                res.status(400).json({ message: 'The email is not available' })
-                return
-            }
-        
 
             // validate data
-            const user = await this.usersModel.updateUser((req as RequestWithUser | any ).user._id as Types.ObjectId, { name, email, role } as UserContract)
+            const user = await this.usersModel.updateUser(req.user.id , { name, email, role })
+
+            if (!user.success) {
+                res.status(400).json({ message: user.error })
+                return
+            }
+
             res.status(200).json(user)
+
             return
         } catch (error) {
             console.error('Error updating profile:', error)
@@ -78,7 +99,12 @@ class ProfileController {
                 const hashedPassword = await bcrypt.hash(password, 12)
     
                 // update password
-                await this.usersModel.updatePassword(user.id as Types.ObjectId, hashedPassword)
+                const result = await this.usersModel.updatePassword(user.id , hashedPassword)
+
+                if (!result.success) {
+                    res.status(404).json({ message: result.error })
+                    return
+                }
     
                 res.status(200).json({ message: 'Password updated successfully' })
     
@@ -86,9 +112,9 @@ class ProfileController {
                 res.status(500).json({ message: 'Failed to update password', error })
             }
         }
-    deleteProfile = async (req: Request, res: Response): Promise<void> => {
+    deleteProfile = async (req: RequestWithUser | any, res: Response): Promise<void> => {
         try {
-            const userId = (req as RequestWithUser | any).user._id as Types.ObjectId
+            const userId = req.user._id
             const result = await this.usersModel.deleteUser(userId)
 
             if (!result) {
@@ -103,9 +129,9 @@ class ProfileController {
         }
     }
 
-    getUserPreferences = async (req: Request, res: Response): Promise<void> => {
+    getUserPreferences = async (req: RequestWithUser | any, res: Response): Promise<void> => {
         try {
-            const userId = (req as RequestWithUser | any).user._id as Types.ObjectId
+            const userId = req.user._id 
             const preferences = await this.usersModel.getUserPreferences(userId)
 
             if (!preferences) {
@@ -120,9 +146,9 @@ class ProfileController {
         }
     }
 
-    updateUserPreferences = async (req: Request, res: Response): Promise<void> => {
+    updateUserPreferences = async (req: RequestWithUser | any, res: Response): Promise<void> => {
         try {
-            const userId = (req as RequestWithUser | any).user._id as Types.ObjectId
+            const userId = req.user._id
             const preferences = req.body as UserContract['preferences']
 
             if (!preferences || typeof preferences !== 'object') {
@@ -144,9 +170,9 @@ class ProfileController {
         }
     }
 
-    deleteUserPreferences = async (req: Request, res: Response): Promise<void> => {
+    deleteUserPreferences = async (req: RequestWithUser | any, res: Response): Promise<void> => {
         try {
-            const userId = (req as RequestWithUser | any).user._id as Types.ObjectId
+            const userId = req.user._id 
             const preferences = await this.usersModel.deleteUserPreferences(userId)
 
             if (!preferences) {
@@ -164,7 +190,7 @@ class ProfileController {
     getProfileById = async (req: Request, res: Response): Promise<void> => {
         try {
             const userId = req.params.id as string
-            const user = await this.usersModel.getUserById(new Types.ObjectId(userId))
+            const user = await this.usersModel.getUserById({ id: userId })
 
             if (!user) {
                 res.status(404).json({ message: 'User not found' })

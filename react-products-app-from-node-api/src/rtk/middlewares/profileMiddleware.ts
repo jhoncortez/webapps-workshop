@@ -1,8 +1,8 @@
 import type { Middleware } from "@reduxjs/toolkit"
 import { profileSuccess, profileFail } from "../features/auth/profileSlice"
-import { getProfile, updateProfile } from "../../services/profileApi"
+import { getProfile, updateProfile } from "../services/profileApi"
 import { authSuccess, logoutAction } from "../features/auth/authSlice"
-import type { RootState } from '../store';
+import type { RootState } from '../../redux/store';
 
 
 export const profileMiddleware: Middleware<RootState> = (store) => (next) => async (action: any) => {

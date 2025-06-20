@@ -52,25 +52,25 @@ export function useCartReducer(initialCart: CartProductType[] = []) {
 
     const [cart, dispatch] = useReducer(cartReducer, initialCart)
 
-    const addToCart = (product: ProductType, quantity: number = 1) => {
+    const dispatchAddToCart = (product: ProductType, quantity: number = 1) => {
 
         dispatch({type: "ADDED_TO_CART", payload: {product, quantity}})
 
     }
 
-    const removeFromCart = (id: ProductType['_id']) => {
+    const dispatchRemoveFromCart = (id: ProductType['_id']) => {
         
         dispatch({type: "REMOVED_FROM_CART", payload: { id }})
     }
 
     // unused un the products and cart components
-    const updateProductInCart = (id: string, quantity: number) => {
+    const dispatchUpdateProductInCart = (id: string, quantity: number) => {
 
         dispatch({type: "UPDATED_PRODUCT_IN_CART", payload: {id, quantity}})
         
     }
 
-    return {cart, addToCart, removeFromCart, updateProductInCart}
+    return {cart, dispatchAddToCart, dispatchRemoveFromCart, dispatchUpdateProductInCart}
 
 }
 

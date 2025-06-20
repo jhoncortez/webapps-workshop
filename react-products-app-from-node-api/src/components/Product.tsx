@@ -15,7 +15,7 @@ import { useInitCart } from "../hooks/cartHooks.ts"
 import Link from "./Link.tsx"
 
 const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string) => void }) => {
-    const { isInCart, quantity, useAddToCart, useRemoveFromCart, useSetQuantity } = useInitCart(data._id)
+    const { isInCart, quantity, dispatchAddToCart: useAddToCart, dispatchRemoveFromCart: useRemoveFromCart, handleSetQuantity: useSetQuantity } = useInitCart(data._id)
     // const [quantity, setQuantity] = useState(1)
 
     // const cart = useAppSelector((state) => state.cart.cart)
@@ -52,7 +52,7 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
                 />
                 <button
                     className="add-to-cart-button"
-                    onClick={() => handlerAddToCart({product:data, quantity})} // addToCart}
+                    onClick={() => handlerAddToCart({product: data, quantity})} // addToCart}
                 >
                     {isInCart ? ( 
                         <>

@@ -1,5 +1,5 @@
 const BASE_API_ROOT = 'http://localhost:3005/api'
-import type { AuthenticatedUser } from "../vite-env.d.ts"
+import type { AuthenticatedUser } from "../../vite-env"
 
 
 // Helper to handle responses

@@ -109,16 +109,32 @@ export type UserPreferences = {
 
 export interface RequestWithUser extends Request {
   user: UserContract;
-  session: {
-    user: {
-      id: Types.ObjectId;
-      email: string;
-      role: string;
-    };
-  };
+  session: Session;
 }
 export interface UserResponse {
     success: boolean
     data?:  Omit<UserContract, 'password'> | null
     error?: string | null
+}
+
+export interface AuthenticatedUser {
+    _id: string
+    email: string
+    role?: string
+}
+
+export interface Session {
+    user: null | AuthenticatedUser;
+}
+
+export interface cartProduct {
+    productId: Types.ObjectId | string,
+    quantity: number
+}
+
+export interface cartContract {
+    userId: Types.ObjectId | string,
+    products: cartProduct[],
+    createdAt: Date,
+    updatedAt: Date
 }

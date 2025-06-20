@@ -57,10 +57,10 @@
 
 // export default authMiddleware;
 
-import { login, register, logout } from '../../services/authApi';
+import { login, register, logout } from '../services/authApi';
 import { authSuccess, authFail } from '../features/auth/authSlice';
 import type { Middleware } from 'redux';
-import type { RootState } from '../store';
+import type { RootState } from '../../redux/store';
 // import type { AuthenticatedUser } from '../../vite-env.d.ts';
 
 // interface AuthAction {

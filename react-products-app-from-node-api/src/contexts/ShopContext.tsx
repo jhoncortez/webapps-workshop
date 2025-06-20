@@ -52,7 +52,7 @@ export const CartProvider = ({children}: {children: React.ReactNode}) => {
     const initialCart: CartProductType[] = JSON.parse(localStorage.getItem('cart') || '[]') // get cart from local storage
 
     // use cart reducer
-    const {cart, addToCart, removeFromCart, updateProductInCart} = useCartReducer(initialCart) // use cart reducer
+    const {cart, dispatchAddToCart: addToCart, dispatchRemoveFromCart: removeFromCart, dispatchUpdateProductInCart: updateProductInCart} = useCartReducer(initialCart) // use cart reducer
 
 
     const value = useMemo(() => ({

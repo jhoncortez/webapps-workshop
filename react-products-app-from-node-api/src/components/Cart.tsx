@@ -2,12 +2,13 @@ import { useState } from "react"
 // import { useInitCart } from "../hooks/cartHooks.ts";
 import { useAppSelector } from "../redux/hooks.ts"
 import CartItem  from "./CartItem.tsx"
+import type { CartProductType } from "../vite-env.d.ts"
 
 import '../assets/css/cart.css'
 
 const Cart = () => {
     // const {cart} = useInitCart()
-    const cart = useAppSelector(state => state.cart.cart)
+    const cart: CartProductType[] = useAppSelector(state => state.cart.cart)
     const [showCart, setShowCart] = useState(false)
 
     return (
