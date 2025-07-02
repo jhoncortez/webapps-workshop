@@ -67,6 +67,25 @@ interface CartProductType extends ProductType {
     quantity: number | undefined
 }
 
+export interface CartItemResponse extends CartProductRequestBody {
+    _id: string
+}
+
+export interface CartProductRequestBody {
+    productId: ProductType['_id'],
+    quantity: number | undefined
+}
+
+export interface CartProductResponse {
+    products: CartItemResponse[]
+}
+export interface CartQueryResponse {
+    data: CartProductResponse
+    isLoading: boolean
+    isError: boolean
+    isSuccess: boolean
+}
+
 // navigation types
 enum Routes {
     PRODUCTS = '/',

@@ -1,64 +1,90 @@
-import { useEffect, useMemo, useState, useCallback } from "react"
-import type { ProductType } from "../vite-env.d.ts"
-// import { useCartContext } from "../contexts/ShopContext";
-import { removeFromCart, addToCart } from "../redux/features/cart/cartSlice.ts"
-import { useAppDispatch, useAppSelector } from "../redux/hooks.ts"
-import type { CartProductType } from "../vite-env.d.ts"
-// import { useCartContext } from "../contexts/ShopContext.tsx"
+import { useCallback, useEffect, useMemo } from "react"
+import { useGetCartQuery, useAddProductMutation, useUpdateProductMutation, useRemoveProductMutation, useClearCartMutation } from "../rtk/services/cartApi"
+import type { CartQueryResponse, CartProductResponse, ProductType, CartItemResponse, CartProductRequestBody } from "../vite-env"
+import { useInitAuth } from "./authHooks"
 
-export const useInitCart = (productId?: string) => {
-    const cart: CartProductType[] = useAppSelector((state) => state.cart.cart)
-    const dispatch = useAppDispatch()
 
-    const [isInCart, setIsInCart] = useState(false)
-    const [quantity, setQuantity] = useState(1)
-    // console.log(isInCart, quantity)
 
+export const useInitCart = () => {
+
+    const {IsAuth, user} = useInitAuth()
     
-    const dispatchAddToCart = useCallback(({product, quantity}: {product: ProductType, quantity: number}) => {
-        dispatch(addToCart({...product, quantity}))
+    const { data, isLoading, isError, isSuccess, refetch } = useGetCartQuery()
+    
+    
+    // const cart = useMemo(() => data?.data, [data])
+    
+    const [addProduct, { isLoading: isLoadingAddProduct, isError: isErrorAddProduct, isSuccess: isSuccessAddProduct }] = useAddProductMutation() 
+    // const [] = useUpdateProductMutation()
+    const [removeProduct] = useRemoveProductMutation()
+
+    const [updateProduct] = useUpdateProductMutation()
+
+    const [clearCart] = useClearCartMutation()
+    // const [{}] = useClearCartMutation()
+
+
+    // const [isInCart, setIsInCart] = useState(false)
+    // const [quantity, setQuantity] = useState(1)
+
+    const dispatchAddToCart = useCallback(({productId, quantity}: {productId: string, quantity: number}) => {
+        addProduct({productId, quantity})
+    }, [])
+
+    const dispatchUpdateProductInCart = useCallback(({productId, quantity}: {productId: string, quantity: number}) => {
+        updateProduct({productId, quantity})
     }, [])
 
     const dispatchRemoveFromCart = useCallback((id: string) => {
-        dispatch(removeFromCart(id))
+        removeProduct({productId: id})
     }, [])
 
-    const productInCartQuantity = useMemo(() => (id: string) => {
-        return cart.find((item) => item._id === id)?.quantity || 1
-    }, [cart])
+    const cart = useMemo(() => data?.data , [data?.data]) as CartProductResponse | null
 
-    const productInCart = useMemo(() => (id: string) => {
-        return cart.find((item) => item._id === id)
-    }, [])
+    const productInCartQuantity = useCallback((id: string) => {
+        console.log('productInCartQuantity cart: ', cart)
+        if (!cart || !Array.isArray(cart.products)) return 1
+        return cart.products.find((item) => item.productId === id)?.quantity || 1
+    }, [data, cart?.products])
 
-    const handleSetInCart = useCallback((id: string) => {
-        setIsInCart(cart.some((item) => item._id === id))
-    }, [cart])
+    const productInCart = useCallback((id: string) => {
+        if (!cart || !Array.isArray(cart.products)) return undefined
+        return cart.products.find((item) => item.productId === id)
+    }, [data, cart?.products])
 
-    const handleSetQuantity = useCallback((value: number) => {
-        setQuantity(value)
-    }, [])
-
-
-
-    // useEffect(() => {
-    //     localStorage.setItem('cart', JSON.stringify()) // save cart to local storage
+    // const handleSetInCart = useCallback((id: string) => {
+    //     setIsInCart(cart.some((item) => item._id === id))
     // }, [cart])
-    
-    
-    
-    // check if the product is in the cart
-    useEffect(() => {
-        // console.log(productId, cart.some((item) => item._id === productId))
-        setIsInCart(cart.some((item) => item._id === productId))
-    },[cart, productId])
-    
-    // update the quantity of the product in the cart
-    useEffect(() => {
-            
-        // setQuantity( isInCart ? cart.find((item) => item._id === productId)?.quantity || 1 : 1)
-        setQuantity(productInCartQuantity(productId as string))
-    }, [isInCart, cart])
 
-    return { isInCart, quantity, cart, dispatchAddToCart, dispatchRemoveFromCart, productInCartQuantity, productInCart, handleSetInCart, handleSetQuantity } // return useCartContext()
+    // const handleSetQuantity = useCallback((value: number) => {
+    //     setQuantity(value)
+    // }, [])
+
+
+    useEffect(() => {
+        if (IsAuth()) {
+            refetch();
+        }
+    }, [data, refetch, user])
+
+
+
+    console.log('data for cart: ', cart)
+
+
+    return {
+        cart, 
+        isLoading, 
+        isError, 
+        isSuccess,
+        isLoadingAddProduct, 
+        isErrorAddProduct, 
+        isSuccessAddProduct,
+        productInCartQuantity, 
+        productInCart,
+        dispatchAddToCart, 
+        dispatchRemoveFromCart,
+        dispatchUpdateProductInCart, 
+        refetch
+    }
 }

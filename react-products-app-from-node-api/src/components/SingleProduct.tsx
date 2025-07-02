@@ -12,21 +12,33 @@ import ProductCategories from "./ProductCategores.tsx"
 import Link from "./Link.tsx"
 import { useInitSingleProduct } from "../hooks/productsHooks"
 import { useInitCart } from "../hooks/cartHooks.ts"
+import { useState } from "react"
 
 const SingleProduct = ({ id }: { id?: string; }) => {
     
     // // console.log('targetRoute', id)
     
     const { data } =  useInitSingleProduct({ id: id as string})
-    const { isInCart, quantity, useAddToCart, useRemoveFromCart, useSetQuantity } = useInitCart(data._id)
-    // const [quantity, setQuantity] = useState(1)
+    const { productInCart, productInCartQuantity, dispatchAddToCart, dispatchRemoveFromCart } = useInitCart()
+
+    const isInCart = productInCart(data._id)
+    const quantity = productInCartQuantity(data._id) || 1 // set quantity to 1 if not in cart
+    console.log('quantity', quantity, ' product id ', data._id)
+
+    const [localQuantity, setLocalQuantity] = useState(quantity);
 
     // const cart = useAppSelector((state) => state.cart.cart)
     // const dispatch = useAppDispatch()
 
-    const handlerAddToCart = useAddToCart
-    const handleRemoveFromCart = useRemoveFromCart
-    const handleProductquantity = useSetQuantity
+    const handlerAddToCart = dispatchAddToCart
+    const handleRemoveFromCart = dispatchRemoveFromCart
+
+    const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value, 10);
+        if (value >= 1) {
+            setLocalQuantity(value);
+        }
+    }
 
     return (
         <div className="product-item">
@@ -40,17 +52,12 @@ const SingleProduct = ({ id }: { id?: string; }) => {
                     type="number"
                     className="product-quantity-input"
                     min="1"
-                    value={quantity}
-                    onChange={(e) => {
-                        const value = parseInt(e.target.value, 10);
-                        if (value >= 1) {
-                            handleProductquantity(value);
-                        }
-                    }}
+                    value={localQuantity}
+                    onChange={handleQuantityChange}
                 />
                 <button
                     className="add-to-cart-button"
-                    onClick={() => handlerAddToCart({product: data, quantity})}
+                    onClick={() => handlerAddToCart({ productId: data._id, quantity: localQuantity })}
                 >
                     {isInCart ? ( 
                         <>

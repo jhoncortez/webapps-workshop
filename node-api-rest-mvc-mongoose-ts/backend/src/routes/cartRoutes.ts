@@ -7,11 +7,11 @@ const cartRouter: Router = Router()
 const cartController = new CartController()
 const authController = new AuthController()
 
-cartRouter.get('/', authController.protectedRoute ,cartController.getCartByUserId)
-cartRouter.post('/addProduct', authController.protectedRoute, cartController.addProductToCart)
-cartRouter.patch('/updateProduct', authController.protectedRoute, cartController.updateProductInCart)
-cartRouter.patch('/deleteProduct', authController.protectedRoute, cartController.deleteProductFromCart)
-cartRouter.delete('/deleteCart', authController.protectedRoute, cartController.deleteCart)
+cartRouter.get('/', cartController.createGuestCart, cartController.getCartByUserId)
+cartRouter.post('/addProduct/:id', cartController.createGuestCart, cartController.addProductToCart)
+cartRouter.patch('/updateProduct/:id', cartController.createGuestCart, cartController.updateProductInCart)
+cartRouter.patch('/deleteProduct/:id', cartController.createGuestCart, cartController.deleteProductFromCart)
+cartRouter.delete('/deleteCart',  cartController.createGuestCart, cartController.deleteCart)
 
 
 export default cartRouter

@@ -1,29 +1,51 @@
-import React, { useEffect, useState } from "react";
-import { useAppSelector } from "../redux/hooks";
+import React, { useEffect, useState, useRef } from "react";
+// import { useAppSelector } from "../rtk/hooks";
+import { useInitProfile } from "../hooks/profileHooks";
 import "../assets/css/profile.css";
 
-interface ProfileFormProps {
-  profileData: { name: string; email: string } | null;
-  onSave: (data: { name: string; email: string; password?: string }) => void;
-}
+// interface ProfileFormProps {
+//   profileData: { name: string; email: string } | null;
+//   onSave: (data: { name: string; email: string; password?: string }) => void;
+// }
 
-const Profile: React.FC<ProfileFormProps> = ({
-  profileData,
-  onSave,
-}) => {
-  const [name, setName] = useState(profileData?.name || "");
-  const [email, setEmail] = useState(profileData?.email || "");
+const Profile: React.FC = (
+//   {
+//   profileData,
+//   onSave,
+// }
+) => {
+
+  const { dispatchUpdateProfile, loading, error, profile } = useInitProfile()
+
+  // const { loading, error, profile } = useAppSelector((state) => state.profile )
+  // const [name, setName] = useState(profile?.name);
+  // const [email, setEmail] = useState(profile?.email);
   const [password, setPassword] = useState("");
   const [editing, setEditing] = useState(false);
 
+  const nameRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  
+  // console.log('profileData: ', profileData)
 
-  const { loading, error } = useAppSelector((state) => state.profile)
+
+  
   console.log('loading: ', loading)
   console.log('error: ', error)
 
+  console.log('profile from store ', profile)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSave({ name, email, password: password || undefined });
+    const name = nameRef.current?.value;
+    const email = emailRef.current?.value;
+
+    if (!name || !email) {
+      return;
+    }
+
+    dispatchUpdateProfile({ name, email })
+
     setEditing(false);
     setPassword("");
   };
@@ -38,6 +60,8 @@ const Profile: React.FC<ProfileFormProps> = ({
     setEditing(loading) // block user from editing if loading
     
   }, [loading, error]);
+
+
 
   return (
     <div className="profile-container">
@@ -59,20 +83,24 @@ const Profile: React.FC<ProfileFormProps> = ({
         <div className="profile-fields">
           <label>
             Name
-            <input
+            <input 
+              // name="name"
               type="text"
-              value={name}
+              defaultValue={profile?.name} 
               disabled={!editing}
-              onChange={(e) => setName(e.target.value)}
+              // onChange={handleDefaltFieldBehavior} // setName(e.target.value}
+              ref={nameRef}
             />
           </label>
           <label>
             Email
             <input
               type="email"
-              value={email}
+              // name="email"
+              defaultValue={profile?.email} 
               disabled={!editing}
-              onChange={(e) => setEmail(e.target.value)}
+              // onChange={handleDefaltFieldBehavior}
+              ref={emailRef}
             />
           </label>
           <label>
@@ -106,8 +134,8 @@ const Profile: React.FC<ProfileFormProps> = ({
               type="button"
               className="profile-cancel-btn"
               onClick={() => {
-                setName(profileData?.name || "");
-                setEmail(profileData?.email || "");
+                // setName(profile?.name || "");
+                // setEmail(profile?.email || "");
                 setPassword("");
                 setEditing(false);
               }}

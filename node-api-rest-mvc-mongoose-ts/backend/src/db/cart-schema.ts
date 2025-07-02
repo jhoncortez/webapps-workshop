@@ -6,10 +6,10 @@ import { cartContract } from '../types'
 
 
 const cartSchema = new mongoose.Schema<cartContract>({
-        userId: { type: mongoose.Schema.Types.ObjectId, required: true},
+        userId: { type: String, required: true},
         products: [{ 
             type: { 
-                productId: mongoose.Schema.Types.ObjectId, 
+                productId: String, 
                 quantity: Number 
             }
         }],

@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useMemo } from "react"
 import type { ProductType, ProductsContextType, CartContextType, CartProductType } from "../vite-env.d.ts"
-import { useCartReducer } from "../reducers/cartReducer.ts"
+// import { useCartReducer } from "../reducers/cartReducer.ts"
 // Context for products
 
 const ProductsContext = createContext<ProductsContextType | undefined>(undefined);
@@ -40,45 +40,46 @@ export const useProductsContext = () => {
     return context;
 }
 
-/**
- * context for cart
- * this context handles the cart
- */
+// I DONT NEED THIS ANY MORE DUE IM USING REDUX - TOOLKIT - QUERY FOR CART
+// /**
+//  * context for cart
+//  * this context handles the cart
+//  */
 
-const CartContext = createContext<CartContextType | undefined>(undefined)
+// const CartContext = createContext<CartContextType | undefined>(undefined)
 
-export const CartProvider = ({children}: {children: React.ReactNode}) => {
+// export const CartProvider = ({children}: {children: React.ReactNode}) => {
 
-    const initialCart: CartProductType[] = JSON.parse(localStorage.getItem('cart') || '[]') // get cart from local storage
+//     const initialCart: CartProductType[] = JSON.parse(localStorage.getItem('cart') || '[]') // get cart from local storage
 
-    // use cart reducer
-    const {cart, dispatchAddToCart: addToCart, dispatchRemoveFromCart: removeFromCart, dispatchUpdateProductInCart: updateProductInCart} = useCartReducer(initialCart) // use cart reducer
+//     // use cart reducer
+//     const {cart, dispatchAddToCart: addToCart, dispatchRemoveFromCart: removeFromCart, dispatchUpdateProductInCart: updateProductInCart} = useCartReducer(initialCart) // use cart reducer
 
 
-    const value = useMemo(() => ({
+//     const value = useMemo(() => ({
         
-        cart,
-        addToCart,
-        removeFromCart,
-        updateProductInCart,
-    }), [cart])
+//         cart,
+//         addToCart,
+//         removeFromCart,
+//         updateProductInCart,
+//     }), [cart])
 
-    // test cart rendering
-    // useEffect(() => {
-    //     // console.log(cart)
-    // }, [cart])
+//     // test cart rendering
+//     // useEffect(() => {
+//     //     // console.log(cart)
+//     // }, [cart])
 
-    return (
-        <CartContext.Provider value={value}>
-            {children}
-        </CartContext.Provider>
-    )
-}
+//     return (
+//         <CartContext.Provider value={value}>
+//             {children}
+//         </CartContext.Provider>
+//     )
+// }
 
-export const useCartContext = () => {
-    const context = useContext(CartContext);
-    if (!context) {
-        throw new Error("useCartContext must be used within a CartProvider");
-    }
-    return context;
-}
+// export const useCartContext = () => {
+//     const context = useContext(CartContext);
+//     if (!context) {
+//         throw new Error("useCartContext must be used within a CartProvider");
+//     }
+//     return context;
+// }

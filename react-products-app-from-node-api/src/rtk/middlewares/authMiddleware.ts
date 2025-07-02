@@ -104,10 +104,14 @@ export const authMiddleware: Middleware<{}, RootState> = (store) => (next) => as
             }
         }
 
-        else if (action.type === 'auth/logout') {
+        else if (action.type === 'auth/logoutRequest') {
         if ('payload' in action) {
             try {
-                await logout();
+                const loggedOut = await logout();
+                if (!loggedOut) {
+                    // store.dispatch(authSuccess({user: null}));
+                    store.dispatch(authFail('Logout failed'));
+                }
             } catch (error: any) {
                 store.dispatch(authFail(error.message));
             } finally {

@@ -1,7 +1,7 @@
 import type { Middleware } from "@reduxjs/toolkit"
 import { profileSuccess, profileFail } from "../features/auth/profileSlice"
 import { getProfile, updateProfile } from "../services/profileApi"
-import { authSuccess, logoutAction } from "../features/auth/authSlice"
+import { authSuccess, logoutRequest } from "../features/auth/authSlice"
 import type { RootState } from '../../redux/store';
 
 
@@ -16,7 +16,7 @@ export const profileMiddleware: Middleware<RootState> = (store) => (next) => asy
         } catch (error: any) {
             store.dispatch(profileFail(error.message))
             if (error.message === 'Unauthorized') {
-                store.dispatch(logoutAction())
+                store.dispatch(logoutRequest())
             }
         }
     }

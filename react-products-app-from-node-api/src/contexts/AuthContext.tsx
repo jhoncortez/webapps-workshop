@@ -1,6 +1,7 @@
-import { createContext, use, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useInitAuth } from "../hooks/authHooks";
 import { useInitProfile } from "../hooks/profileHooks";
+// import { useInitCart } from "../hooks/cartHooks";
 // import { useAppDispatch } from "../redux/hooks";
 // import {getCurrentUser} from "../services/authApi"
 
@@ -23,8 +24,12 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
 
     const { dispatchLogout, IsAuth, dispatchLogin , user, error, loading, dispatchRegister} = useInitAuth()
     const { dispatchGetProfile, profile } = useInitProfile()
+    // const { dispatchGetCart } = useInitCart()
+
     // dispatchLogout()
     useEffect(() => {
+
+        console.log('IsAuth from auth context: ',IsAuth())
         
           if (IsAuth() && !profile && !loading) {
 
@@ -34,6 +39,7 @@ export const AuthProvider = ({children}: {children: React.ReactNode}) => {
                   // dispatch({type: 'auth/profile', payload: getCurrentUser()})
                   // dispatchGetProfile()
                   dispatchGetProfile()
+                //   dispatchGetCart()
               } catch (error) {
                   console.error('Error fetching profile', error)
               }

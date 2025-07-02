@@ -1,4 +1,6 @@
-import { ProductsProvider, CartProvider } from '../contexts/ShopContext.tsx'
+import { ProductsProvider,
+  //  CartProvider 
+  } from '../contexts/ShopContext.tsx'
 
 import Router from './Router.tsx'
 import Cart  from './Cart.tsx'
@@ -41,7 +43,7 @@ const App = () => {
     
     
         <ProductsProvider>
-          <CartProvider>
+          {/* <CartProvider> */}
             {/* <Navbar /> */}
             <Router routes={routes} DefaultPage={Default}>
               <Route path="/shop" Component={Products} />
@@ -53,7 +55,7 @@ const App = () => {
               {/* <Route path="*" Component={Default} /> */}
             </Router>
             <Cart />
-          </CartProvider>
+          {/* </CartProvider> */}
         </ProductsProvider>
   );
 }

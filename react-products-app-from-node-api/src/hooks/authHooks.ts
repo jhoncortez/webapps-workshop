@@ -1,7 +1,7 @@
 import { useMemo } from "react"
 // import { createSelector } from "@reduxjs/toolkit"
-import { useAppDispatch, useAppSelector } from "../redux/hooks.ts"
-import { loginRequest, registerRequest, logoutAction } from "../rtk/features/auth/authSlice.ts"
+import { useAppDispatch, useAppSelector } from "../rtk/hooks.ts"
+import { loginRequest, registerRequest, logoutRequest, authFail } from "../rtk/features/auth/authSlice.ts"
 
 export const useInitAuth = () => {
 
@@ -16,7 +16,7 @@ export const useInitAuth = () => {
     const { user, loading, error} = useAppSelector((state) => state.auth)
 
     const dispatchLogout = useMemo(() => () => {
-        dispatch(logoutAction())
+        dispatch(logoutRequest())
     }, [])
 
     const IsAuth = useMemo(() => () => {
@@ -32,6 +32,10 @@ export const useInitAuth = () => {
         dispatch(registerRequest({ email, password, name }))
     }, [])
 
-    return { dispatchLogout, IsAuth, dispatchLogin, dispatchRegister, error, loading, user } 
+    const dispatchFail= useMemo(() => ({ error }: {error: string}) => {
+        dispatch(authFail(error))
+    }, [])
+
+    return { dispatchLogout, IsAuth, dispatchLogin, dispatchRegister, error, loading, user, dispatchFail } 
 }
 

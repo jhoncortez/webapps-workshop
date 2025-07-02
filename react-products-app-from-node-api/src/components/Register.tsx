@@ -9,7 +9,7 @@ const Login = () => {
 
     // const { dispatchLogout, IsAuth, dispatchLogin , user, error, loading} = useInitAuth()
     // const { dispatchLogout, IsAuth, dispatchLogin , user, error, loading} = useAuthContext()
-    const { IsAuth, user, error, loading, dispatchRegister} = useInitAuth()
+    const { IsAuth, user, error, loading, dispatchRegister, dispatchFail} = useInitAuth()
 
 
     // console.log('user: ', user)
@@ -27,7 +27,7 @@ const Login = () => {
         const name = formData.get('name') as string | null
 
         if (!email || !password || !name ) {
-            console.error('Email or Password or Name is not provided')
+            dispatchFail({ error: 'Email or Password is not provided'})
             return
         }
 

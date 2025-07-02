@@ -133,7 +133,7 @@ export interface cartProduct {
 }
 
 export interface cartContract {
-    userId: Types.ObjectId | string,
+    userId: string,
     products: cartProduct[],
     createdAt: Date,
     updatedAt: Date

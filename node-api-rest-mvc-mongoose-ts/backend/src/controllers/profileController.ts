@@ -64,7 +64,7 @@ class ProfileController {
                 return
             }
 
-            res.status(200).json(user)
+            res.status(200).json(user.data)
 
             return
         } catch (error) {

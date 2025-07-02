@@ -7,6 +7,9 @@ import bcrypt from 'bcryptjs'
 import { Types } from 'mongoose'
 import dotenv from 'dotenv' // MongoDB connection URI
 import type { AuthenticatedUser, Session } from '../types'
+import { v4 as uuidv4 } from 'uuid'
+import  CartController  from './cartController.js'
+
 dotenv.config() // Load environment variables from .env file
 
 
@@ -15,9 +18,10 @@ class AuthController {
     private JWT_EXPIRES_IN: number
     private ENVIRONMENT: string
     private readonly usersModel: UsersModel
+    private cartController: CartController
     // private model: UsersModel = new UsersModel()
     constructor() {
-        
+        this.cartController = new CartController()
         this.usersModel = new UsersModel()
         this.JWT_SECRET = process.env.JWT_SECRET || 'secret' // Default secret key, should be replaced with a secure key in production
         this.JWT_EXPIRES_IN = parseInt(process.env.JWT_EXPIRATION || '604800', 10) || 604800 // 7 days
@@ -39,6 +43,14 @@ class AuthController {
      * @throws {Error} - If the user already exists, or if there is an error creating the user.
      */
     registerUser = async (req: Request, res: Response): Promise<void>  => {
+
+        const { sessionUser }  = (req as RequestWithUser | any).session 
+
+        if (sessionUser) {
+            res.status(400).json({ message: 'User already logged in', user: sessionUser })
+            return
+        }
+
         // const usersModel = new UsersModel()
         // console.log(this.model)
         if (!this.usersModel) {
@@ -83,9 +95,14 @@ class AuthController {
                 
                 // 4 set cookie
                 res.cookie('token', token, { httpOnly: true, secure: this.ENVIRONMENT === 'production' || this.ENVIRONMENT === 'staging' || this.ENVIRONMENT === 'development', sameSite: 'none', maxAge: this.JWT_EXPIRES_IN })
+
+                // merge carts
+                if (req.cookies?.guestId) {
+                    await this.cartController.mergeGuestCart(req, res)
+                }
                 
                 // 5 send response
-                res.status(201).json({ user: result })
+                res.status(201).json({ user: result.data })
 
             }
             return 
@@ -101,6 +118,13 @@ class AuthController {
      * @returns {Object} An object containing the authenticated user and a JWT token, or the result in case of failure.
      */
     loginUser = async (req: Request, res: Response): Promise<void>  => {
+        const { sessionUser }  = (req as RequestWithUser | any).session 
+
+        if (sessionUser) {
+            res.status(400).json({ message: 'User already logged in', user: sessionUser })
+            return
+        }
+
         // const usersModel = new UsersModel()
         const { email, password } = req.body as UserContract
         // console.log(req.body)
@@ -134,7 +158,12 @@ class AuthController {
                 // return { user: result, token }
                 // set cookie
                 res.cookie('token', token, { httpOnly: true, secure: this.ENVIRONMENT === 'production' || this.ENVIRONMENT === 'staging' || this.ENVIRONMENT === 'development', sameSite: 'none', maxAge: this.JWT_EXPIRES_IN })
-                
+
+                // merge carts
+                if (req.cookies?.guestId) {
+                    await this.cartController.mergeGuestCart(req, res)
+                }
+
                 // return user
                 res.status(200).json({ user: { id: user._id, email: user.email, role: user.role, preferences: user.preferences } })
                 return
@@ -187,7 +216,11 @@ class AuthController {
 
     async logoutUser(req: Request, res: Response): Promise<void> {
         res.clearCookie('token')
-        res.status(200).json({ message: 'Logout successful' })
+
+        // set a new guestId cookie for the now logged out user
+        res.cookie('guestId', uuidv4(), { httpOnly: true, sameSite: 'lax' })
+
+        res.status(200).json({ message: 'Logout successful, you are now as a guest' })
         return
     }
 }

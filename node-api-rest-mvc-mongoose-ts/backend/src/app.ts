@@ -5,6 +5,7 @@ import cartRouter from './routes/cartRoutes.js'
 import profileRouter  from './routes/profileRoutes.js' // This code imports the profile router from the profileRoutes module.
 import { corsMiddleware } from './middlewares/cors.js' // This code imports the CORS middleware for handling cross-origin requests.
 import authenticateMiddleware from './middlewares/auths.js' // This code imports the authentication middleware for handling user authentication.
+import ensureGuestId from './middlewares/guestUser.js'
 import connectToDatabase from './config/db-connect-mongoose.js' // This code imports the connectToDatabase function from the mongoose module.
 import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv' // MongoDB connection URI
@@ -25,6 +26,7 @@ app.use(corsMiddleware()) // This code enables CORS for all routes in the Expres
 app.use(cookieParser())
 // middleware to parse cookies from incoming requests
 app.use(authenticateMiddleware)
+app.use(ensureGuestId)
 
 // middleware to handle routes
 app.use('/api/products', productsRouter)
