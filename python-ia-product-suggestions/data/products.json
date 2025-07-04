@@ -1,0 +1,1210 @@
+[
+  {
+    "name": "Wireless Noise-Canceling Headphones",
+    "slug": "wireless-noise-canceling-headphones",
+    "regular_price": 299,
+    "sale_price": 249,
+    "on_sale": true,
+    "price": 249,
+    "categories": [
+      {
+        "id": 3,
+        "name": "Electronics",
+        "slug": "electronics"
+      },
+      {
+        "id": 4,
+        "name": "Audio",
+        "slug": "audio"
+      }
+    ],
+    "images": [
+      {
+        "id": 2,
+        "src": "https://example.com/headphones1.jpg",
+        "name": "Premium Wireless Headphones"
+      }
+    ],
+    "description": "Experience crystal-clear sound with our premium wireless headphones featuring active noise cancellation technology. Perfect for travelers, office workers, and audiophiles who demand immersive audio experiences. 30-hour battery life with quick charge capability.",
+    "short_description": "Premium sound with active noise cancellation.",
+    "attributes": [
+      {
+        "id": 3,
+        "name": "Color",
+        "options": [
+          "Black",
+          "Silver",
+          "Space Gray"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 3,
+        "name": "bluetooth",
+        "slug": "bluetooth"
+      },
+      {
+        "id": 4,
+        "name": "premium",
+        "slug": "premium"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 35,
+    "sku": "AUDIO-202",
+    "featured": true
+  },
+  {
+    "name": "Organic Cotton T-Shirt",
+    "slug": "organic-cotton-tshirt",
+    "regular_price": 29,
+    "sale_price": 24,
+    "on_sale": true,
+    "price": 24,
+    "categories": [
+      {
+        "id": 5,
+        "name": "Clothing",
+        "slug": "clothing"
+      },
+      {
+        "id": 6,
+        "name": "Women",
+        "slug": "women"
+      }
+    ],
+    "images": [
+      {
+        "id": 3,
+        "src": "https://example.com/tshirt1.jpg",
+        "name": "Organic Cotton Tee"
+      }
+    ],
+    "description": "Soft, breathable organic cotton t-shirt with a relaxed fit. Ethically sourced materials and eco-friendly dyes make this the perfect choice for environmentally conscious consumers. Machine washable with minimal shrinkage.",
+    "short_description": "Eco-friendly comfort in a classic tee.",
+    "attributes": [
+      {
+        "id": 4,
+        "name": "Color",
+        "options": [
+          "White",
+          "Black",
+          "Navy",
+          "Olive"
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Size",
+        "options": [
+          "S",
+          "M",
+          "L",
+          "XL"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 5,
+        "name": "eco",
+        "slug": "eco"
+      },
+      {
+        "id": 6,
+        "name": "casual",
+        "slug": "casual"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 120,
+    "sku": "CLOTH-303",
+    "featured": false
+  },
+  {
+    "name": "Stainless Steel Water Bottle",
+    "slug": "stainless-steel-water-bottle",
+    "regular_price": 35,
+    "sale_price": 28,
+    "on_sale": true,
+    "price": 28,
+    "categories": [
+      {
+        "id": 7,
+        "name": "Accessories",
+        "slug": "accessories"
+      },
+      {
+        "id": 8,
+        "name": "Outdoor",
+        "slug": "outdoor"
+      }
+    ],
+    "images": [
+      {
+        "id": 4,
+        "src": "https://example.com/bottle1.jpg",
+        "name": "Insulated Water Bottle"
+      }
+    ],
+    "description": "Keep your drinks cold for 24 hours or hot for 12 with our premium double-walled stainless steel water bottle. Leak-proof design with a carrying loop makes it perfect for hiking, commuting, or office use. BPA-free and dishwasher safe.",
+    "short_description": "Temperature control for your beverages.",
+    "attributes": [
+      {
+        "id": 6,
+        "name": "Color",
+        "options": [
+          "Matte Black",
+          "Rose Gold",
+          "Ocean Blue"
+        ]
+      },
+      {
+        "id": 7,
+        "name": "Capacity",
+        "options": [
+          "500ml",
+          "750ml",
+          "1L"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 7,
+        "name": "hydration",
+        "slug": "hydration"
+      },
+      {
+        "id": 8,
+        "name": "travel",
+        "slug": "travel"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 85,
+    "sku": "ACC-404",
+    "featured": true
+  },
+  {
+    "name": "Smart Fitness Tracker",
+    "slug": "smart-fitness-tracker",
+    "regular_price": 129,
+    "sale_price": 99,
+    "on_sale": true,
+    "price": 99,
+    "categories": [
+      {
+        "id": 3,
+        "name": "Electronics",
+        "slug": "electronics"
+      },
+      {
+        "id": 9,
+        "name": "Fitness",
+        "slug": "fitness"
+      }
+    ],
+    "images": [
+      {
+        "id": 5,
+        "src": "https://example.com/tracker1.jpg",
+        "name": "Advanced Fitness Tracker"
+      }
+    ],
+    "description": "Monitor your health 24/7 with this advanced fitness tracker featuring heart rate monitoring, sleep analysis, and GPS tracking. Water-resistant design with 7-day battery life. Syncs seamlessly with both iOS and Android devices.",
+    "short_description": "Comprehensive health monitoring on your wrist.",
+    "attributes": [
+      {
+        "id": 8,
+        "name": "Color",
+        "options": [
+          "Black",
+          "Midnight Blue",
+          "Rose Pink"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 9,
+        "name": "wearable",
+        "slug": "wearable"
+      },
+      {
+        "id": 10,
+        "name": "health",
+        "slug": "health"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 42,
+    "sku": "FIT-505",
+    "featured": true
+  },
+  {
+    "name": "Ceramic Non-Stick Cookware Set",
+    "slug": "ceramic-cookware-set",
+    "regular_price": 199,
+    "sale_price": 159,
+    "on_sale": true,
+    "price": 159,
+    "categories": [
+      {
+        "id": 10,
+        "name": "Home",
+        "slug": "home"
+      },
+      {
+        "id": 11,
+        "name": "Kitchen",
+        "slug": "kitchen"
+      }
+    ],
+    "images": [
+      {
+        "id": 6,
+        "src": "https://example.com/cookware1.jpg",
+        "name": "10-Piece Cookware Set"
+      }
+    ],
+    "description": "Transform your cooking experience with this premium ceramic non-stick cookware set. Even heat distribution, PFOA-free coating, and oven-safe up to 450°F. Includes pots, pans, and utensils for a complete kitchen upgrade.",
+    "short_description": "Healthy cooking with premium ceramic coating.",
+    "attributes": [
+      {
+        "id": 9,
+        "name": "Color",
+        "options": [
+          "Sky Blue",
+          "Cream",
+          "Graphite"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 11,
+        "name": "kitchen",
+        "slug": "kitchen"
+      },
+      {
+        "id": 12,
+        "name": "healthy",
+        "slug": "healthy"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 28,
+    "sku": "HOME-606",
+    "featured": false
+  },
+  {
+    "name": "Yoga Mat with Alignment Guide",
+    "slug": "yoga-mat-alignment",
+    "regular_price": 59,
+    "sale_price": 45,
+    "on_sale": true,
+    "price": 45,
+    "categories": [
+      {
+        "id": 9,
+        "name": "Fitness",
+        "slug": "fitness"
+      },
+      {
+        "id": 12,
+        "name": "Yoga",
+        "slug": "yoga"
+      }
+    ],
+    "images": [
+      {
+        "id": 7,
+        "src": "https://example.com/yogamat1.jpg",
+        "name": "Eco-Friendly Yoga Mat"
+      }
+    ],
+    "description": "Premium eco-friendly yoga mat with alignment markers to perfect your poses. Non-slip surface provides stability during intense sessions, while the cushioned design protects your joints. Made from natural tree rubber and free from harmful chemicals.",
+    "short_description": "Alignment markers for perfect yoga practice.",
+    "attributes": [
+      {
+        "id": 10,
+        "name": "Color",
+        "options": [
+          "Lavender",
+          "Ocean",
+          "Charcoal"
+        ]
+      },
+      {
+        "id": 11,
+        "name": "Thickness",
+        "options": [
+          "4mm",
+          "6mm"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 13,
+        "name": "yoga",
+        "slug": "yoga"
+      },
+      {
+        "id": 14,
+        "name": "eco",
+        "slug": "eco"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 67,
+    "sku": "FIT-707",
+    "featured": true
+  },
+  {
+    "name": "Leather Laptop Bag",
+    "slug": "leather-laptop-bag",
+    "regular_price": 189,
+    "sale_price": 149,
+    "on_sale": true,
+    "price": 149,
+    "categories": [
+      {
+        "id": 13,
+        "name": "Bags",
+        "slug": "bags"
+      },
+      {
+        "id": 14,
+        "name": "Office",
+        "slug": "office"
+      }
+    ],
+    "images": [
+      {
+        "id": 8,
+        "src": "https://example.com/laptopbag1.jpg",
+        "name": "Professional Laptop Bag"
+      }
+    ],
+    "description": "Handcrafted genuine leather laptop bag with multiple compartments for your 15-inch laptop, tablet, and accessories. Professional design with anti-theft features including hidden zippers and RFID-blocking pockets. Adjustable shoulder strap for comfort.",
+    "short_description": "Professional protection for your tech gear.",
+    "attributes": [
+      {
+        "id": 12,
+        "name": "Color",
+        "options": [
+          "Black",
+          "Brown",
+          "Tan"
+        ]
+      },
+      {
+        "id": 13,
+        "name": "Laptop Size",
+        "options": [
+          "13-inch",
+          "15-inch",
+          "17-inch"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 15,
+        "name": "professional",
+        "slug": "professional"
+      },
+      {
+        "id": 16,
+        "name": "leather",
+        "slug": "leather"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 23,
+    "sku": "BAG-808",
+    "featured": true
+  },
+  {
+    "name": "Bluetooth Portable Speaker",
+    "slug": "bluetooth-portable-speaker",
+    "regular_price": 89,
+    "sale_price": 69,
+    "on_sale": true,
+    "price": 69,
+    "categories": [
+      {
+        "id": 3,
+        "name": "Electronics",
+        "slug": "electronics"
+      },
+      {
+        "id": 4,
+        "name": "Audio",
+        "slug": "audio"
+      }
+    ],
+    "images": [
+      {
+        "id": 9,
+        "src": "https://example.com/speaker1.jpg",
+        "name": "Waterproof Bluetooth Speaker"
+      }
+    ],
+    "description": "Take your music anywhere with this rugged, waterproof Bluetooth speaker. 12-hour playtime, built-in microphone for hands-free calls, and the ability to pair multiple speakers for stereo sound. Perfect for beach trips, pool parties, or outdoor adventures.",
+    "short_description": "Waterproof sound for outdoor adventures.",
+    "attributes": [
+      {
+        "id": 14,
+        "name": "Color",
+        "options": [
+          "Black",
+          "Blue",
+          "Red",
+          "Army Green"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 17,
+        "name": "portable",
+        "slug": "portable"
+      },
+      {
+        "id": 18,
+        "name": "waterproof",
+        "slug": "waterproof"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 54,
+    "sku": "AUDIO-909",
+    "featured": false
+  },
+  {
+    "name": "Memory Foam Pillow",
+    "slug": "memory-foam-pillow",
+    "regular_price": 65,
+    "sale_price": 49,
+    "on_sale": true,
+    "price": 49,
+    "categories": [
+      {
+        "id": 15,
+        "name": "Bedding",
+        "slug": "bedding"
+      },
+      {
+        "id": 16,
+        "name": "Wellness",
+        "slug": "wellness"
+      }
+    ],
+    "images": [
+      {
+        "id": 10,
+        "src": "https://example.com/pillow1.jpg",
+        "name": "Orthopedic Memory Foam Pillow"
+      }
+    ],
+    "description": "Experience superior neck support with our orthopedic memory foam pillow. Temperature-sensitive foam conforms to your head and neck while remaining cool throughout the night. Hypoallergenic and dust-mite resistant for allergy sufferers.",
+    "short_description": "Orthopedic support for better sleep.",
+    "attributes": [
+      {
+        "id": 15,
+        "name": "Size",
+        "options": [
+          "Standard",
+          "Queen",
+          "King"
+        ]
+      },
+      {
+        "id": 16,
+        "name": "Firmness",
+        "options": [
+          "Soft",
+          "Medium",
+          "Firm"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 19,
+        "name": "sleep",
+        "slug": "sleep"
+      },
+      {
+        "id": 20,
+        "name": "health",
+        "slug": "health"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 78,
+    "sku": "HOME-1010",
+    "featured": true
+  },
+  {
+    "name": "Electric Toothbrush with UV Sanitizer",
+    "slug": "electric-toothbrush-sanitizer",
+    "regular_price": 129,
+    "sale_price": 99,
+    "on_sale": true,
+    "price": 99,
+    "categories": [
+      {
+        "id": 17,
+        "name": "Health",
+        "slug": "health"
+      },
+      {
+        "id": 18,
+        "name": "Personal Care",
+        "slug": "personal-care"
+      }
+    ],
+    "images": [
+      {
+        "id": 11,
+        "src": "https://example.com/toothbrush1.jpg",
+        "name": "Advanced Electric Toothbrush"
+      }
+    ],
+    "description": "Professional-grade electric toothbrush with 40,000 vibrations per minute for superior plaque removal. Includes UV sanitizer to kill 99.9% of bacteria on brush heads. Multiple cleaning modes and pressure sensor for gum protection.",
+    "short_description": "Professional cleaning with UV sanitation.",
+    "attributes": [
+      {
+        "id": 17,
+        "name": "Color",
+        "options": [
+          "White",
+          "Black",
+          "Rose Gold"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 21,
+        "name": "dental",
+        "slug": "dental"
+      },
+      {
+        "id": 22,
+        "name": "hygiene",
+        "slug": "hygiene"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 39,
+    "sku": "HEALTH-1111",
+    "featured": true
+  },
+  {
+    "name": "4K Action Camera",
+    "slug": "4k-action-camera",
+    "regular_price": 299,
+    "sale_price": 249,
+    "on_sale": true,
+    "price": 249,
+    "categories": [
+      {
+        "id": 3,
+        "name": "Electronics",
+        "slug": "electronics"
+      },
+      {
+        "id": 19,
+        "name": "Cameras",
+        "slug": "cameras"
+      }
+    ],
+    "images": [
+      {
+        "id": 12,
+        "src": "https://example.com/actioncam1.jpg",
+        "name": "Waterproof Action Camera"
+      }
+    ],
+    "description": "Capture your adventures in stunning 4K resolution with this rugged action camera. Waterproof up to 40m without a case, with built-in image stabilization for smooth footage. Includes multiple mounting accessories for bikes, helmets, and more.",
+    "short_description": "Professional-grade action footage in 4K.",
+    "attributes": [
+      {
+        "id": 18,
+        "name": "Color",
+        "options": [
+          "Black",
+          "Adventure Orange"
+        ]
+      },
+      {
+        "id": 19,
+        "name": "Bundle",
+        "options": [
+          "Basic",
+          "Pro",
+          "Ultimate"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 23,
+        "name": "adventure",
+        "slug": "adventure"
+      },
+      {
+        "id": 24,
+        "name": "photography",
+        "slug": "photography"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 31,
+    "sku": "CAM-1212",
+    "featured": true
+  },
+  {
+    "name": "Aromatherapy Essential Oil Diffuser",
+    "slug": "aromatherapy-diffuser",
+    "regular_price": 49,
+    "sale_price": 39,
+    "on_sale": true,
+    "price": 39,
+    "categories": [
+      {
+        "id": 15,
+        "name": "Bedding",
+        "slug": "bedding"
+      },
+      {
+        "id": 16,
+        "name": "Wellness",
+        "slug": "wellness"
+      }
+    ],
+    "images": [
+      {
+        "id": 13,
+        "src": "https://example.com/diffuser1.jpg",
+        "name": "Ultrasonic Essential Oil Diffuser"
+      }
+    ],
+    "description": "Create a spa-like atmosphere with this ultrasonic essential oil diffuser featuring 7 color-changing LED lights. Whisper-quiet operation with automatic shut-off. Perfect for bedrooms, offices, or meditation spaces to promote relaxation and better sleep.",
+    "short_description": "Transform your space with soothing aromas.",
+    "attributes": [
+      {
+        "id": 20,
+        "name": "Color",
+        "options": [
+          "White",
+          "Wood Grain",
+          "Marble"
+        ]
+      },
+      {
+        "id": 21,
+        "name": "Capacity",
+        "options": [
+          "100ml",
+          "200ml",
+          "300ml"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 25,
+        "name": "wellness",
+        "slug": "wellness"
+      },
+      {
+        "id": 26,
+        "name": "relaxation",
+        "slug": "relaxation"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 62,
+    "sku": "HOME-1313",
+    "featured": false
+  },
+  {
+    "name": "Adjustable Dumbbell Set",
+    "slug": "adjustable-dumbbell-set",
+    "regular_price": 349,
+    "sale_price": 299,
+    "on_sale": true,
+    "price": 299,
+    "categories": [
+      {
+        "id": 9,
+        "name": "Fitness",
+        "slug": "fitness"
+      },
+      {
+        "id": 20,
+        "name": "Strength Training",
+        "slug": "strength-training"
+      }
+    ],
+    "images": [
+      {
+        "id": 14,
+        "src": "https://example.com/dumbbell1.jpg",
+        "name": "Space-Saving Dumbbell System"
+      }
+    ],
+    "description": "Complete home gym solution with our space-saving adjustable dumbbell system. Quickly switch between 5-50 lbs per dumbbell with a simple dial. Ergonomic design with contoured handles for comfortable grip during all exercises.",
+    "short_description": "Full weight range in one compact system.",
+    "attributes": [
+      {
+        "id": 22,
+        "name": "Weight Range",
+        "options": [
+          "5-25 lbs",
+          "5-50 lbs",
+          "10-90 lbs"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 27,
+        "name": "home gym",
+        "slug": "home-gym"
+      },
+      {
+        "id": 28,
+        "name": "weights",
+        "slug": "weights"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 18,
+    "sku": "FIT-1414",
+    "featured": true
+  },
+  {
+    "name": "Smart LED Plant Grow Light",
+    "slug": "smart-grow-light",
+    "regular_price": 89,
+    "sale_price": 69,
+    "on_sale": true,
+    "price": 69,
+    "categories": [
+      {
+        "id": 10,
+        "name": "Home",
+        "slug": "home"
+      },
+      {
+        "id": 21,
+        "name": "Garden",
+        "slug": "garden"
+      }
+    ],
+    "images": [
+      {
+        "id": 15,
+        "src": "https://example.com/growlight1.jpg",
+        "name": "Full Spectrum Grow Light"
+      }
+    ],
+    "description": "Help your indoor plants thrive with this full spectrum LED grow light featuring smart timer and adjustable brightness. Perfect for herbs, succulents, and flowering plants. Energy-efficient design with multiple mounting options.",
+    "short_description": "Professional plant care for indoor gardens.",
+    "attributes": [
+      {
+        "id": 23,
+        "name": "Color",
+        "options": [
+          "Black",
+          "White"
+        ]
+      },
+      {
+        "id": 24,
+        "name": "Size",
+        "options": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 29,
+        "name": "gardening",
+        "slug": "gardening"
+      },
+      {
+        "id": 30,
+        "name": "smart home",
+        "slug": "smart-home"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 47,
+    "sku": "GARDEN-1515",
+    "featured": false
+  },
+  {
+    "name": "Gaming Mouse with RGB Lighting",
+    "slug": "gaming-mouse-rgb",
+    "regular_price": 79,
+    "sale_price": 59,
+    "on_sale": true,
+    "price": 59,
+    "categories": [
+      {
+        "id": 3,
+        "name": "Electronics",
+        "slug": "electronics"
+      },
+      {
+        "id": 22,
+        "name": "Gaming",
+        "slug": "gaming"
+      }
+    ],
+    "images": [
+      {
+        "id": 16,
+        "src": "https://example.com/gamingmouse1.jpg",
+        "name": "High-Precision Gaming Mouse"
+      }
+    ],
+    "description": "Dominate your games with this high-precision gaming mouse featuring 16,000 DPI optical sensor, 8 programmable buttons, and customizable RGB lighting. Ergonomic design with textured grips for marathon gaming sessions.",
+    "short_description": "Precision control for competitive gaming.",
+    "attributes": [
+      {
+        "id": 25,
+        "name": "Color",
+        "options": [
+          "Black",
+          "White"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 31,
+        "name": "gaming",
+        "slug": "gaming"
+      },
+      {
+        "id": 32,
+        "name": "esports",
+        "slug": "esports"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 53,
+    "sku": "GAME-1616",
+    "featured": true
+  },
+  {
+    "name": "Cold Brew Coffee Maker",
+    "slug": "cold-brew-coffee-maker",
+    "regular_price": 39,
+    "sale_price": 29,
+    "on_sale": true,
+    "price": 29,
+    "categories": [
+      {
+        "id": 11,
+        "name": "Kitchen",
+        "slug": "kitchen"
+      },
+      {
+        "id": 23,
+        "name": "Coffee",
+        "slug": "coffee"
+      }
+    ],
+    "images": [
+      {
+        "id": 17,
+        "src": "https://example.com/coffeemaker1.jpg",
+        "name": "Glass Cold Brew System"
+      }
+    ],
+    "description": "Make smooth, low-acid cold brew coffee at home with this easy-to-use system. Glass construction with airtight lid preserves freshness. Includes stainless steel filter for grit-free brewing. Perfect for iced coffee lovers.",
+    "short_description": "Craft barista-quality cold brew at home.",
+    "attributes": [
+      {
+        "id": 26,
+        "name": "Size",
+        "options": [
+          "32oz",
+          "64oz"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 33,
+        "name": "coffee",
+        "slug": "coffee"
+      },
+      {
+        "id": 34,
+        "name": "barista",
+        "slug": "barista"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 76,
+    "sku": "KITCHEN-1717",
+    "featured": false
+  },
+  {
+    "name": "Resistance Band Set",
+    "slug": "resistance-band-set",
+    "regular_price": 39,
+    "sale_price": 29,
+    "on_sale": true,
+    "price": 29,
+    "categories": [
+      {
+        "id": 9,
+        "name": "Fitness",
+        "slug": "fitness"
+      },
+      {
+        "id": 24,
+        "name": "Home Workout",
+        "slug": "home-workout"
+      }
+    ],
+    "images": [
+      {
+        "id": 18,
+        "src": "https://example.com/bands1.jpg",
+        "name": "5-Piece Resistance Band Set"
+      }
+    ],
+    "description": "Versatile workout solution with 5 resistance levels from light to extra heavy. Includes door anchor, ankle straps, and exercise guide for full-body workouts anywhere. Latex-free material with comfortable foam handles.",
+    "short_description": "Portable strength training for any space.",
+    "attributes": [
+      {
+        "id": 27,
+        "name": "Resistance Levels",
+        "options": [
+          "3 Bands",
+          "5 Bands",
+          "Professional Set"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 35,
+        "name": "portable",
+        "slug": "portable"
+      },
+      {
+        "id": 36,
+        "name": "training",
+        "slug": "training"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 89,
+    "sku": "FIT-1818",
+    "featured": true
+  },
+  {
+    "name": "Smart Digital Picture Frame",
+    "slug": "smart-digital-picture-frame",
+    "regular_price": 199,
+    "sale_price": 149,
+    "on_sale": true,
+    "price": 149,
+    "categories": [
+      {
+        "id": 3,
+        "name": "Electronics",
+        "slug": "electronics"
+      },
+      {
+        "id": 25,
+        "name": "Home Decor",
+        "slug": "home-decor"
+      }
+    ],
+    "images": [
+      {
+        "id": 19,
+        "src": "https://example.com/pictureframe1.jpg",
+        "name": "10-inch Digital Photo Frame"
+      }
+    ],
+    "description": "Display your favorite memories in brilliant HD with this Wi-Fi connected digital picture frame. Automatically updates with new photos from your cloud storage or social media. Touchscreen controls with multiple display modes and calendar/weather features.",
+    "short_description": "Connected display for your digital memories.",
+    "attributes": [
+      {
+        "id": 28,
+        "name": "Size",
+        "options": [
+          "8-inch",
+          "10-inch",
+          "15-inch"
+        ]
+      },
+      {
+        "id": 29,
+        "name": "Color",
+        "options": [
+          "Black",
+          "White",
+          "Walnut"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 37,
+        "name": "smart",
+        "slug": "smart"
+      },
+      {
+        "id": 38,
+        "name": "photos",
+        "slug": "photos"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 27,
+    "sku": "HOME-1919",
+    "featured": true
+  },
+  {
+    "name": "Reusable Silicone Food Storage Bags",
+    "slug": "silicone-food-bags",
+    "regular_price": 29,
+    "sale_price": 19,
+    "on_sale": true,
+    "price": 19,
+    "categories": [
+      {
+        "id": 11,
+        "name": "Kitchen",
+        "slug": "kitchen"
+      },
+      {
+        "id": 26,
+        "name": "Eco-Friendly",
+        "slug": "eco-friendly"
+      }
+    ],
+    "images": [
+      {
+        "id": 20,
+        "src": "https://example.com/foodbags1.jpg",
+        "name": "Eco-Friendly Food Storage"
+      }
+    ],
+    "description": "Ditch single-use plastic with these durable, leak-proof silicone food storage bags. Freezer, microwave, and dishwasher safe. Stand-up design with easy-seal closure. Perfect for meal prep, snacks, and organizing small items.",
+    "short_description": "Sustainable alternative to plastic bags.",
+    "attributes": [
+      {
+        "id": 30,
+        "name": "Size",
+        "options": [
+          "Small (6x8in)",
+          "Medium (7x9in)",
+          "Large (8x10in)"
+        ]
+      },
+      {
+        "id": 31,
+        "name": "Color",
+        "options": [
+          "Assorted",
+          "Neutral",
+          "Bright"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 39,
+        "name": "eco",
+        "slug": "eco"
+      },
+      {
+        "id": 40,
+        "name": "kitchen",
+        "slug": "kitchen"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 112,
+    "sku": "KITCHEN-2020",
+    "featured": false
+  },
+  {
+    "name": "Acupressure Mat and Pillow Set",
+    "slug": "acupressure-mat-set",
+    "regular_price": 59,
+    "sale_price": 49,
+    "on_sale": true,
+    "price": 49,
+    "categories": [
+      {
+        "id": 16,
+        "name": "Wellness",
+        "slug": "wellness"
+      },
+      {
+        "id": 27,
+        "name": "Pain Relief",
+        "slug": "pain-relief"
+      }
+    ],
+    "images": [
+      {
+        "id": 21,
+        "src": "https://example.com/acupressure1.jpg",
+        "name": "Therapeutic Acupressure Set"
+      }
+    ],
+    "description": "Relieve muscle tension and promote relaxation with this authentic acupressure mat and pillow set. Thousands of pressure points stimulate circulation and trigger endorphin release. Perfect for back pain, stress relief, and improved sleep.",
+    "short_description": "Natural pain relief through acupressure therapy.",
+    "attributes": [
+      {
+        "id": 32,
+        "name": "Color",
+        "options": [
+          "Blue",
+          "Purple",
+          "Natural"
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "id": 41,
+        "name": "wellness",
+        "slug": "wellness"
+      },
+      {
+        "id": 42,
+        "name": "therapy",
+        "slug": "therapy"
+      }
+    ],
+    "stock_status": "instock",
+    "stock_quantity": 41,
+    "sku": "WELLNESS-2121",
+    "featured": true
+  }
+]
