@@ -153,7 +153,8 @@ class ProductRecommenderST:
         if not self.products:
             self.load_products()
         prompt_vec = self.model.encode([prompt], convert_to_numpy=True)
-        similarities = np.dot(self.embeddings, prompt_vec.T).flatten()
+        # similarities = np.dot(self.embeddings, prompt_vec.T).flatten()
+        similarities = cosine_similarity(prompt_vec, self.embeddings).flatten()
         top_indices = similarities.argsort()[::-1][:top_n]
         # recommendations = [self.products[i] for i in top_indices]
         # return recommendations
