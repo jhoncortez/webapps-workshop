@@ -18,6 +18,7 @@ type ProductType = {
     price: string,
     categories?: CategoryType[]
     images?: ImageType[]
+    description?: string
 }
 
 interface CategoryFilterProps {

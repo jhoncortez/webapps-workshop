@@ -6,6 +6,7 @@ import authReducer from './features/auth/authSlice';
 import profileReducer from './features/auth/profileSlice';
 import { authMiddleware } from './middlewares/authMiddleware';
 import { profileMiddleware } from './middlewares/profileMiddleware';
+import { assistantApi } from './services/assistantApi';
 
 // Persist config for auth only
 const authPersistConfig = {
@@ -17,7 +18,8 @@ const authPersistConfig = {
 const rootReducer = combineReducers({
   [cartApi.reducerPath]: cartApi.reducer, // Add the cartApi reducer
   auth: persistReducer(authPersistConfig, authReducer), // Persist the auth reducer
-  profile: profileReducer // Add the profile reducer
+  profile: profileReducer, // Add the profile reducer
+  [assistantApi.reducerPath]: assistantApi.reducer
 });
 
 const store = configureStore({
@@ -29,6 +31,7 @@ const store = configureStore({
       .concat(cartApi.middleware) // Add the cartApi middleware
       .concat(authMiddleware as Middleware) // Add the auth middleware
       .concat(profileMiddleware) // Add the profile middleware
+      .concat(assistantApi.middleware)
       
 });
 

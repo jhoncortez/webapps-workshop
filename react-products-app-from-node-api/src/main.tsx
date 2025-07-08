@@ -23,6 +23,8 @@ import { AuthProvider } from './contexts/AuthContext.tsx'
 import { NavigationProvider } from './contexts/NavigationContext.tsx'
 import Navbar from './components/Navbar.tsx'
 import Footer from './components/Footer.tsx'
+import AssistantButton from './components/AssistantButton.tsx'
+import { ProductsProvider } from './contexts/ShopContext.tsx'
 
 import store, { persistor }  from './rtk/store'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -38,10 +40,16 @@ createRoot(document.getElementById('root')!).render(
         <PersistGate loading={null} persistor={persistor} >
           <AuthProvider>
             <NavigationProvider>
+              <ProductsProvider>
 
-              <Navbar />
-              <App />
-              <Footer />
+                <Navbar />
+                <App />
+                <Footer />
+                <AssistantButton />
+
+              </ProductsProvider>
+
+              
 
             </NavigationProvider>
             

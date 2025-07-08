@@ -11,6 +11,7 @@ import ProductImageSlider from "./ProductImageSlider.tsx"
 import ProductCategories from "./ProductCategores.tsx"
 import { useInitCart } from "../hooks/cartHooks"
 import { useState } from "react"
+import { limitString } from "../utils/utils.ts"
 // import { useAppDispatch, useAppSelector } from "../redux/hooks.ts"
 
 import Link from "./Link.tsx"
@@ -31,6 +32,7 @@ const Product = ({ data, onRemove }: { data: ProductType; onRemove: (id: string)
             <h3><Link to={`/product/:id`} params={{ id: data._id }}>{ data.name }</Link></h3> 
             <span className="product-price">Price: { data.price }</span>
             <ProductCategories categories={ data.categories }/>
+            <p className="product-description">{ data.description && limitString(data.description, 100) }</p>
             {/* <button
             className="remove-product-button" 
             onClick={ () => onRemove(data._id) }>Remove product</button> */}

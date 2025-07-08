@@ -46,6 +46,7 @@ const SingleProduct = ({ id }: { id?: string; }) => {
             <h3><Link to={`/product/:id`} params={{ id: data._id }}>{ data.name }</Link></h3> 
             <span className="product-price">Price: { data.price }</span>
             <ProductCategories categories={ data.categories }/>
+            <p className="product-description">{ data.description }</p>
 
 <div className="product-actions">
                 <input
