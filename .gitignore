@@ -136,3 +136,8 @@ dist
 .pnp.*
 **/*.code-workspace
 **/**/.vite
+**/**/__pycache__
+**/**/.venv
+**/**/.venv/**
+**/sbert_model.npy
+**/tfidf_model.joblib
